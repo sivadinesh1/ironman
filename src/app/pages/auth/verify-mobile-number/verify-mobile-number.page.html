@@ -1,0 +1,60 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>verify-mobile-number</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	One Last Step. Verify your mobile number and we are good to go. <br />
+	{{ this.rawUserData | json }}
+
+	Welcome {{ this.rawUserData.obj.firstname }}, <br />
+	{{ this.rawUserData.centerid }} <br />
+
+	<div class="num-section">
+		<p>Please enter the OTP sent to</p>
+		<div>+91 {{ this.rawUserData.obj.mobilenumber }}</div>
+		<div>
+			<form>
+				<input type="number" readonly maxlength="1" #p1 (input)="moveOnMax('p2')" />
+				<input type="number" readonly maxlength="1" #p2 (input)="moveOnMax('p3')" />
+				<input type="number" readonly maxlength="1" #p3 (input)="moveOnMax('p4')" />
+				<input type="number" readonly maxlength="1" #p4 (input)="moveOnMax('p5')" />
+				<input type="number" readonly maxlength="1" #p5 (input)="moveOnMax('p6')" />
+				<input type="number" readonly maxlength="1" #p6 />
+			</form>
+		</div>
+
+		<div class="keypad">
+			<div class="row">
+				<div class="col1" (click)="fillOTP('1')">1</div>
+				<div class="col2" (click)="fillOTP('2')">2</div>
+				<div class="col3" (click)="fillOTP('3')">3</div>
+			</div>
+			<div class="row">
+				<div class="col1" (click)="fillOTP('4')">4</div>
+				<div class="col2" (click)="fillOTP('5')">5</div>
+				<div class="col3" (click)="fillOTP('6')">6</div>
+			</div>
+			<div class="row">
+				<div class="col1" (click)="fillOTP('7')">7</div>
+				<div class="col2" (click)="fillOTP('8')">8</div>
+				<div class="col3" (click)="fillOTP('9')">9</div>
+			</div>
+			<div class="row">
+				<div class="col1">&nbsp;</div>
+				<div class="col2" (click)="fillOTP('0')">0</div>
+				<div class="col3" (click)="fillOTP('-1')">=></div>
+			</div>
+		</div>
+		<ion-button
+			(click)="onVerifyOTP()"
+			type="button"
+			[disabled]="verifyDisabled"
+			shape="round"
+			name="action"
+			expand="block"
+			>Verify OTP</ion-button
+		>
+	</div>
+</ion-content>

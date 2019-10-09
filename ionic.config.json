@@ -1,5 +1,7 @@
 {
   "name": "ironman",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

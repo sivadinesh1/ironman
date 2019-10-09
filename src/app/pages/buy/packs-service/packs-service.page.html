@@ -1,0 +1,43 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>packs-service</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	SELECT A PACK <br />
+
+	<div>
+		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet delectus recusandae laborum a quos nemo distinctio
+		doloribus consequatur ut atque itaque minima illo harum accusamus esse quaerat rem tenetur, mollitia tempore
+		voluptas tempora unde nesciunt repellat. Dolorem doloremque amet praesentium eum mollitia tenetur repudiandae nam
+		dolor! Nemo dolores quidem nisi adipisci excepturi qui perferendis doloremque veniam exercitationem tenetur aliquam
+		ipsam, culpa voluptatibus corrupti velit amet cum quod delectus nihil animi? Assumenda magnam ipsa eaque iusto
+		accusantium optio? Labore accusamus libero suscipit dolores? Voluptate eum cum voluptates! Porro laudantium
+		molestiae modi harum veniam magni quos ullam vel aliquam voluptas reprehenderit, cum consectetur. Voluptatem hic,
+	</div>
+
+	<div *ngFor="let item of servicepacks" class="list">
+		<div class="list-packs" [ngStyle]="{ 'background-color': isSelected(item) }" (click)="choosePack(item)">
+			{{ item.service_name }}
+		</div>
+	</div>
+
+	<div class="section-9">
+		<h3>HOW IT WORKS</h3>
+		<div class="section-9-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+		<div class="section-9-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+		<div class="section-9-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+	</div>
+
+	<ion-button class="floatingbtn"  (click)="register()"> Register {{sessions}} Sessions Packs</ion-button>
+</ion-content>

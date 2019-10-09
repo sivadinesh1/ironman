@@ -1,0 +1,27 @@
+.test {
+	padding: 1rem;
+	outline: 1px solid grey;
+}
+
+.corp-summary {
+	display: flex;
+	padding: 1rem;
+	background-color: plum;
+	width: 90%;
+	border-radius: 10px;
+	margin: auto;
+
+	.corp-name {
+		flex: 1 1 auto;
+		flex-basis: 80%;
+		font-size: 1rem;
+		align-self: center;
+	}
+
+	.corp-count {
+		width: 100px;
+		font-size: 2rem;
+		text-align: center;
+		color: #333333;
+	}
+}

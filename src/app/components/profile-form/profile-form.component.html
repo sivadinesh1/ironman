@@ -1,0 +1,29 @@
+<div [formGroup]="form">
+	<ion-input type="text" placeholder="Line 1" formControlName="line1" clearInput></ion-input>
+
+	<div class="error-container">
+		<ng-container *ngFor="let validation of validation_messages.line1">
+			<div
+				class="error-message"
+				*ngIf="line1Control.hasError(validation.type) && (line1Control.dirty || line1Control.touched)"
+			>
+				<ion-icon name="information-circle-outline"></ion-icon>
+				<span>{{ validation.message }}</span>
+			</div>
+		</ng-container>
+	</div>
+
+	<ion-input type="text" placeholder="Line 2" formControlName="line2" clearInput></ion-input>
+
+	<div class="error-container">
+		<ng-container *ngFor="let validation of validation_messages.line2">
+			<div
+				class="error-message"
+				*ngIf="line2Control.hasError(validation.type) && (line2Control.dirty || line2Control.touched)"
+			>
+				<ion-icon name="information-circle-outline"></ion-icon>
+				<span>{{ validation.message }}</span>
+			</div>
+		</ng-container>
+	</div>
+</div>

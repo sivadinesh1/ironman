@@ -6,6 +6,10 @@ export const environment = {
   production: false
 };
 
+export const restApiUrl = 'http://localhost:8080';
+export const errorApiUrl = 'http://localhost:5555';
+export const testApiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

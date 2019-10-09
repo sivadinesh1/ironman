@@ -1,3 +1,64 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+	<ion-split-pane>
+		<ion-menu class="app-sidemenu">
+			<ion-header>
+				<ion-toolbar>
+					<ion-row class="user-details-wrapper">
+						<ion-col size="4">
+							<app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
+								<app-image-shell
+									class="user-avatar"
+									animation="spinner"
+									[src]="'https://pbs.twimg.com/profile_images/722153095761903616/WjIKQ7Wm_400x400.jpg'"
+								></app-image-shell>
+							</app-aspect-ratio>
+						</ion-col>
+						<ion-col class="user-info-wrapper" size="8">
+							<h3 class="user-name">Ionic Themes</h3>
+							<h5 class="user-handle">@IonicThemes</h5>
+						</ion-col>
+					</ion-row>
+				</ion-toolbar>
+			</ion-header>
+			<ion-content>
+				<ion-list>
+					<ion-list-header>Layouts</ion-list-header>
+					<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+						<ion-item [routerLink]="p.url">
+							<ion-icon slot="start" [src]="p.icon"></ion-icon>
+							<ion-label>
+								{{ p.title }}
+							</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+				<ion-list>
+					<ion-list-header>Account</ion-list-header>
+					<ion-menu-toggle auto-hide="false" *ngFor="let p of accountPages; let i = index">
+						<ion-item [routerLink]="p.url">
+							<ion-icon slot="start" [src]="p.icon"></ion-icon>
+							<ion-label>
+								{{ p.title }}
+							</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+				<ion-list>
+					<ion-list-header>Forms</ion-list-header>
+					<ion-menu-toggle auto-hide="false">
+						<ion-item (click)="logout()">
+							<ion-icon slot="start" src="./assets/sample-icons/side-menu/forms.svg"></ion-icon>
+							<ion-label>
+								Sign Out
+							</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+			</ion-content>
+		</ion-menu>
+		<!-- Main app content get's rendered in this router-outlet -->
+		<ion-router-outlet main></ion-router-outlet>
+	</ion-split-pane>
 </ion-app>

@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,42 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// EXTRA GLOBAL STYLES
+// Add custom Ionic Colors
+@import "./theme/custom-ion-colors.scss";
+// Add base app styles
+@import "./theme/app-defaults.scss";
+// Add base shell styles
+@import "./theme/shell-defaults.scss";
+
+@import "./theme/variables.scss";
+
+.modalCss {
+	--background: blueviolet;
+	--min-width: 300px;
+	--height: 50%;
+	--max-height: 50%;
+	--border-radius: 50px;
+}
+
+
+.custom-loader-class{
+    --background:#F4B004;
+    --spinner-color:#F94701;
+}
+
+// .can-go-back header-component ion-back-button {
+// 	display: block;
+//   }
+
+  .ion-color-transparent {
+    --ion-color-base: var(--ion-color-transparent) !important;
+    --ion-color-base-rgb: var(--ion-color-transparent-rgb) !important;
+    --ion-color-contrast: var(--ion-color-transparent-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-transparent-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-transparent-shade) !important;
+    --ion-color-tint: var(--ion-color-transparent-tint) !important;
+}

@@ -1,0 +1,46 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			member Dashboard
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-segment>
+		<ion-segment-button (click)="show('tab1')">
+			<ion-label>At Center</ion-label>
+		</ion-segment-button>
+		<ion-segment-button checked (click)="show('tab2')">
+			<ion-label>1 on 1</ion-label>
+		</ion-segment-button>
+		<ion-segment-button (click)="show('tab3')">
+			<ion-label>At Home</ion-label>
+		</ion-segment-button>
+		<ion-segment-button (click)="show('tab4')">
+			<ion-label>Gear</ion-label>
+		</ion-segment-button>
+	</ion-segment>
+
+	<div *ngIf="tab1">
+		<app-md-tab1></app-md-tab1>
+	</div>
+
+	<div *ngIf="tab2">
+		<app-md-tab2></app-md-tab2>
+	</div>
+	<div *ngIf="tab3">
+		<app-md-tab3></app-md-tab3>
+	</div>
+	<div *ngIf="tab4">
+		<app-md-tab4></app-md-tab4>
+	</div>
+</ion-content>
+
+<!-- to exclude spec.ts files in vscode 
+https://www.freakyjolly.com/vs-code-how-to-hide-spec-ts-test-files-from-sidebar-file-explorer/  -->
+<!-- compodoc -->
+<!-- https://www.youtube.com/watch?v=xJSKZ1DE4Go -->

@@ -1,0 +1,18 @@
+<div [formGroup]="form">
+	<ion-item class="input-item">
+		<ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+		<ion-input type="text" placeholder="Email" formControlName="email" clearInput></ion-input>
+
+		<div class="error-container">
+			<ng-container *ngFor="let validation of validation_messages.email">
+				<div
+					class="error-message"
+					*ngIf="emailControl.hasError(validation.type) && (emailControl.dirty || emailControl.touched)"
+				>
+					<ion-icon name="information-circle-outline"></ion-icon>
+					<span>{{ validation.message }}</span>
+				</div>
+			</ng-container>
+		</div>
+	</ion-item>
+</div>

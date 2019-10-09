@@ -1,0 +1,126 @@
+<div class="wrapper">
+	<div class="section-1">
+		<img src="/assets/images/gym-1.jpg" />
+	</div>
+	<div class="section-2">
+		<h3>BOOK A SESSION</h3>
+		<p>Workout with a Personal Trainer and achieve your fitness goals.</p>
+		<div class="btns">
+			<div class="btn">
+				Silver Trainer
+			</div>
+			<div class="btn">
+				Gold Trainer
+			</div>
+			<div class="free">
+				1599 FREE
+			</div>
+			<div class="free">
+				2799 FREE
+			</div>
+		</div>
+	</div>
+
+	<div class="section-3">
+		<h3>SILVER TRAINER PACKS</h3>
+		<P>Save up to 35% with a Cult Membership</P>
+
+		<div class="scrolling-wrapper-flexbox ">
+			Silver - 1
+			<div class="card" *ngFor="let item of this.silverPackageArr" (click)="buyPacks(item)">
+				{{ item?.service_name }}
+			</div>
+
+			<!-- <div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div> -->
+		</div>
+
+		<!-- <div class="mini-cards">
+    <div class="mini-card">
+      <div class="top">
+        5 Sessions
+      </div>
+      <div class="mid">
+        7999
+      </div>
+      <div class="bottom">
+        1499/session
+      </div>
+    </div>
+  </div> -->
+	</div>
+
+	<div class="section-4">
+		Silver
+		<div *ngFor="let item of this.silverTrainers">
+			<div class="trainer-info" (click)="openBottomSheet(item)">
+				<div class="trainer-img">
+					<img class="img" src="/assets/images/manju.jpg" alt="Avatar" />
+				</div>
+				<div class="trainer-name">
+					{{ item?.first_name }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section-5">
+		Gold
+		<div *ngFor="let item of this?.goldTrainers">
+			{{ item?.first_name }}
+		</div>
+	</div>
+
+	<div class="section-6">
+		Platinum
+		<div *ngFor="let item of this?.platinumTrainers">
+			{{ item?.first_name }}
+		</div>
+	</div>
+
+	<div class="section-7">
+		Premium
+		<div *ngFor="let item of this?.premiumTrainers">
+			{{ item?.first_name }}
+		</div>
+	</div>
+
+	<div class="section-8">
+		<h3>KEY FEATURES</h3>
+		<div class="section-8-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+		<div class="section-8-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+		<div class="section-8-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+	</div>
+
+	<div class="section-9">
+		<h3>HOW IT WORKS</h3>
+		<div class="section-9-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+		<div class="section-9-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+		<div class="section-9-list">
+			<div class="img">image</div>
+			<div class="info">Info</div>
+		</div>
+	</div>
+</div>
