@@ -1,4 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+
 
 
 @Component({
@@ -7,11 +9,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  
 
-  constructor() {
-  }
+   constructor(
+  ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+   
   }
 
 }

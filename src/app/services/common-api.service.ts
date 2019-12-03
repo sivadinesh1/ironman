@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { restApiUrl, errorApiUrl } from 'src/environments/environment';
+import { restApiUrl, errorApiUrl, paymentApiUrl } from 'src/environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { Platform } from '@ionic/angular';
 
@@ -18,6 +18,7 @@ export class CommonApiService {
   errorApiUrl = errorApiUrl;
 
   errorObj: ErrorObject;
+  paymentApiUrl = paymentApiUrl;
 
   constructor(private httpclient: HttpClient, private plt: Platform,
     @Inject(PLATFORM_ID) private platformId: any,
@@ -55,6 +56,7 @@ export class CommonApiService {
   }
 
   getTrainers(centerid) {
+
     return this.httpclient.get(`${this.restApiUrl}/api/gettrainers/${centerid}`);
   }
 
@@ -70,7 +72,9 @@ export class CommonApiService {
   }
 
 
-
+  payTMgetChecksum() {
+    return this.httpclient.get(this.paymentApiUrl + '/api/paytmgetchecksum');
+  }
 
 }
 

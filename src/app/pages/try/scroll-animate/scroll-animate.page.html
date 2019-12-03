@@ -1,0 +1,18 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="end">
+			<ion-button><ion-icon slot="icon-only" name="heart"></ion-icon></ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="content-container">
+		<p *ngFor="let item of listitem">
+			{{item.name}}
+		</p>
+		<div #triggerElement>
+			hello
+		</div>
+	</div>
+</ion-content>

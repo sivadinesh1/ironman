@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
     private cdr: ChangeDetectorRef,
     public menu: MenuController, private authenticationService: AuthenticationService,
   ) {
-    
+
     // displays sample phone # in UI, placeholder="{{ this.countries[0].sample_phone }}"
     this.countries = [
       new CountryPhone('IN', 'India'),
@@ -79,7 +79,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
 
 
@@ -118,20 +118,24 @@ export class LoginPage implements OnInit {
           this.authenticationService.setUserid(data.obj.id);
 
           if (role === 'superadmin') {
-            this.router.navigate([`app/super-admin-dashboard/${data.obj.id}`]);
+            this.router.navigate([`app/dashboard/super-admin-dashboard/${data.obj.id}`]);
+            this.invalidLogin = false;
+            this.cdr.markForCheck();
+          } else if (role === 'corporate') {
+            this.router.navigate([`app/dashboard/corporate-dashboard/${data.obj.id}`]);
             this.invalidLogin = false;
             this.cdr.markForCheck();
           } else if (role === 'centeradmin') {
-            this.router.navigate([`app/admin-dashboard/${data.obj.id}`]);
+            this.router.navigate([`app/dashboard/admin-dashboard/${data.obj.id}`]);
             this.invalidLogin = false;
             this.cdr.markForCheck();
           } else if (role === 'member') {
 
-            this.router.navigate([`app/member-dashboard`]);
+            this.router.navigate([`app/dashboard/member-dashboard/${data.obj.id}`]);
             this.invalidLogin = false;
             this.cdr.markForCheck();
           } else if (role === 'trainer') {
-            this.router.navigate([`app/trainer-dashboard`]);
+            this.router.navigate([`app/dashboard/trainer-dashboard/${data.obj.id}`]);
             this.invalidLogin = false;
             this.cdr.markForCheck();
           }
@@ -140,11 +144,11 @@ export class LoginPage implements OnInit {
         } else if (data.message === 'FAILURE') {
           this.invalidLogin = true;
 
-          if (data.additionalInfo === 'INVALID_CREDENTIALS') {
+          if (data.additionalinfo === 'INVALID_CREDENTIALS') {
             this.responsemsg = "Login Failed. Invalid Credentials";
-          } else if (data.additionalInfo === 'USER_NOT_FOUND') {
+          } else if (data.additionalinfo === 'USER_NOT_FOUND') {
             this.responsemsg = "User not found.";
-          } else if (data.additionalInfo === 'PENDING_VERIFICATION') {
+          } else if (data.additionalinfo === 'PENDING_VERIFICATION') {
             this.responsemsg = "PENDING_VERIFICATION";
             this.sendOTP(username);
             this.router.navigate([`auth/verify-mobile-number/${username}/${data.obj.id}`]);
@@ -154,20 +158,6 @@ export class LoginPage implements OnInit {
         }
 
 
-      },
-      error => {
-
-        this.errorObj = new ErrorObject(myGlobals.appid, '', '', `authenticate@username=${username},password=${password}`, error, `browser`);
-
-        this.unsubscribe$.sink = this.commonApiservice.captureError(this.errorObj).subscribe(
-          data => {
-            console.log('object' + JSON.stringify(data));
-          }
-        );
-
-        this.invalidLogin = true;
-        this.responsemsg = this.authenticationService.errormsg;
-        this.cdr.markForCheck();
       }
 
     );

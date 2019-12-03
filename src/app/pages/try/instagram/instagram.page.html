@@ -1,0 +1,17 @@
+
+<ion-header>
+  <ion-header color="primary">
+    <ion-title>
+      Insta share
+    </ion-title>
+  </ion-header>
+</ion-header>
+ 
+<ion-content padding>
+ 
+<img [src]="currentImage" *ngIf="currentImage">
+ 
+<button ion-button full (click)="loadImage()">Load Image</button>
+<button ion-button full (click)="shareImage()" [disabled]="!currentImage">Instagram share</button>
+ 
+</ion-content>

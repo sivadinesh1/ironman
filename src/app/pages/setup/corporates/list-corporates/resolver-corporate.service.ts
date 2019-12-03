@@ -6,7 +6,8 @@ import { map, catchError } from 'rxjs/operators';
 
 import { of } from 'rxjs';
 import { SetupApiService } from '../../setup-api.service';
-import { ResolvedCorporate } from './resolved-corporate-model';
+import { ResolvedEntity } from '../../resolved-entity-model';
+
 
 
 @Injectable({
@@ -19,11 +20,11 @@ export class CorporateResolverService implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
+        
         return this.setupapiservice.getAllCorporates('Y')
             .pipe(
-                map((data) => new ResolvedCorporate(data)),
-                catchError((err: any) => of(new ResolvedCorporate(null, err)))
+                map((data) => new ResolvedEntity(data)),
+                catchError((err: any) => of(new ResolvedEntity(null, err)))
             );
 
     }

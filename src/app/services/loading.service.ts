@@ -53,38 +53,17 @@ export class LoadingService {
     });
   }
 
-  /**
-   * calls after dismissAfter method
-   * @param url 
-   * @param toastmsg 
-   * @param pos 
-   * @param isclose 
-   * @param btncaption 
-   */
-  async dismissNRoute(url, toastmsg, pos, isclose, btncaption) {
-    this.isLoading = false;
-    return await this.loadingController.dismiss().then(() => {
-      console.log('dismissed');
-      this.presentToastWithOptions(toastmsg, pos, isclose, btncaption);
-      this._router.navigateByUrl(url);
-    });
-  }
 
-  /**
-   * 
-   * @param timer - waiting time to call dismiss
-   * @param url - navigation url after loading dismissed
-   * @param toastmsg  - toast msg after dismissed
-   * @param pos - position of toast, middle, bottom (by default)
-   * @param isclose - show close button or not 
-   * @param btncaption - btn caption
-   */
-  async dismissAfter(timer, url, toastmsg, pos, isclose, btncaption) {
+
+
+
+  async routeAfter(timer, url, toastmsg, pos, isclose, btncaption) {
+
+    this.presentToastWithOptions(toastmsg, pos, isclose, btncaption);
     setTimeout(() => {
-      this.dismissNRoute(url, toastmsg, pos, isclose, btncaption);
+      this._router.navigateByUrl(url);
     }, timer);
   }
-
 
   async presentToast(msg) {
     const toast = await this.toastController.create({
@@ -95,6 +74,7 @@ export class LoadingService {
   }
 
   async presentToastWithOptions(msg, pos, isclose, btncaption) {
+
     const toast = await this.toastController.create({
       message: msg,
       showCloseButton: isclose,
@@ -118,6 +98,54 @@ export class LoadingService {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  async confirmLeaving(url, form) {
+    const alert = await this.alertctrl.create({
+      header: 'Attention !',
+      message: 'You have unsaved changes. Are you sure you want to leave?',
+      buttons: [
+        {
+          text: 'Stay',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => { }
+        }, {
+          text: 'Leave',
+          handler: () => {
+            this._router.navigate([url]); //Change **URL_Back_Route** for your Router
+            form.markAsPristine();
+            form.markAsUntouched();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async confirmLeaving1(url, form) {
+    const alert = await this.alertctrl.create({
+      header: 'Attention !',
+      message: 'You have unsaved changes. Are you sure you want to leave?',
+      buttons: [
+        {
+          text: 'Stay',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => { }
+        }, {
+          text: 'Leave',
+          handler: () => {
+            this._router.navigate([url]); //Change **URL_Back_Route** for your Router
+            form.markAsPristine();
+            form.markAsUntouched();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

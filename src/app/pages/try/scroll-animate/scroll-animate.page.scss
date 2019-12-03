@@ -1,0 +1,29 @@
+:host {
+	background-color: rgb(201, 113, 113);
+}
+
+ion-content {
+	--background: transparent;
+	// --padding-top: 100px;
+	transform: translate3d(0px, 200px, 0px);
+	transition: all 0.5s ease;
+}
+
+ion-toolbar {
+	--background: transparent;
+}
+
+.content-container {
+	height: 100%;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+
+	padding-top: 40px;
+	background-color: #fff;
+	overflow: scroll;
+	padding-bottom: 200px;
+}
+
+.no-transform {
+	transform: translate3d(0px, 0px, 0px) !important;
+}

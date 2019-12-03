@@ -1,0 +1,11 @@
+<div class="modal-wrapper">
+	<!-- <p>services-card works! {{ data }}</p> -->
+
+	<ion-list lines="none" appAnimateItems>
+		<ion-item *ngFor="let item of listservices">
+			<p>{{ item.name }}</p>
+		</ion-item>
+	</ion-list>
+
+	<div (click)="dismiss('test')">TEST</div>
+</div>

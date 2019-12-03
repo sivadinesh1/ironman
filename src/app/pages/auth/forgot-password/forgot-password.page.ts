@@ -34,7 +34,7 @@ export class ForgotPasswordPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
 
   recoverPassword(): void {

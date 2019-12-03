@@ -148,8 +148,6 @@ export class VerifyMobileNumberPage implements OnInit {
 
 
   async onVerifyOTP() {
-    this.loadingservice.present('');
-
 
     // tslint:disable-next-line:max-line-length
     const otpentered = `${this.p1.nativeElement.value}${this.p2.nativeElement.value}${this.p3.nativeElement.value}${this.p4.nativeElement.value}${this.p5.nativeElement.value}${this.p6.nativeElement.value}`
@@ -177,27 +175,27 @@ export class VerifyMobileNumberPage implements OnInit {
             this.unsubscribe$.sink = this.commonApiService.updateUserVerified(this.phonenumber).subscribe(dat => {
               console.log('object ' + dat);
             },
-            error => {
+              error => {
 
-              this.errorObj = new ErrorObject(myGlobals.appid, '', '', `verifyOTP@failure=${this.phonenumber},`, error, `browser`);
-      
-              this.unsubscribe$.sink = this.commonApiService.captureError(this.errorObj).subscribe(
-                data => {
-                  console.log('object' + JSON.stringify(data));
-                }
-              );
-      
-             
-              this.responsemsg = this.authenticationService.errormsg;
-              this.cdr.markForCheck();
-            }
+                this.errorObj = new ErrorObject(myGlobals.appid, '', '', `verifyOTP@failure=${this.phonenumber},`, error, `browser`);
+
+                this.unsubscribe$.sink = this.commonApiService.captureError(this.errorObj).subscribe(
+                  data => {
+                    console.log('object' + JSON.stringify(data));
+                  }
+                );
+
+
+                this.responsemsg = this.authenticationService.errormsg;
+                this.cdr.markForCheck();
+              }
             );
 
 
 
             this.router.navigate([`app/dashboard/${this.userid}`]);
             this.loadingservice.presentToastWithOptions('OTP Verification Successful.', 'middle', false, '');
-            this.loadingservice.dismiss();
+
           }
 
 

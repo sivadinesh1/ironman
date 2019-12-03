@@ -8,13 +8,14 @@
 	SELECT A PACK <br />
 
 	<div>
-		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet delectus recusandae laborum a quos nemo distinctio
-		doloribus consequatur ut atque itaque minima illo harum accusamus esse quaerat rem tenetur, mollitia tempore
-		voluptas tempora unde nesciunt repellat. Dolorem doloremque amet praesentium eum mollitia tenetur repudiandae nam
-		dolor! Nemo dolores quidem nisi adipisci excepturi qui perferendis doloremque veniam exercitationem tenetur aliquam
-		ipsam, culpa voluptatibus corrupti velit amet cum quod delectus nihil animi? Assumenda magnam ipsa eaque iusto
-		accusantium optio? Labore accusamus libero suscipit dolores? Voluptate eum cum voluptates! Porro laudantium
-		molestiae modi harum veniam magni quos ullam vel aliquam voluptas reprehenderit, cum consectetur. Voluptatem hic,
+		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet delectus recusandae laborum a quos nemo
+		distinctio doloribus consequatur ut atque itaque minima illo harum accusamus esse quaerat rem tenetur, mollitia
+		tempore voluptas tempora unde nesciunt repellat. Dolorem doloremque amet praesentium eum mollitia tenetur
+		repudiandae nam dolor! Nemo dolores quidem nisi adipisci excepturi qui perferendis doloremque veniam
+		exercitationem tenetur aliquam ipsam, culpa voluptatibus corrupti velit amet cum quod delectus nihil animi?
+		Assumenda magnam ipsa eaque iusto accusantium optio? Labore accusamus libero suscipit dolores? Voluptate eum cum
+		voluptates! Porro laudantium molestiae modi harum veniam magni quos ullam vel aliquam voluptas reprehenderit,
+		cum consectetur. Voluptatem hic,
 	</div>
 
 	<div *ngFor="let item of servicepacks" class="list">
@@ -39,5 +40,6 @@
 		</div>
 	</div>
 
-	<ion-button class="floatingbtn"  (click)="register()"> Register {{sessions}} Sessions Packs</ion-button>
+	<ion-button #btn class="floatingbtn" (click)="register()"> 
+		<span #txt>Register {{sessions}} Sessions Packs</span></ion-button>
 </ion-content>

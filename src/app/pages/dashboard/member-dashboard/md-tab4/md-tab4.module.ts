@@ -22,6 +22,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   
-  declarations: [MdTab4Page]
+  declarations: []
 })
 export class MdTab4PageModule { }

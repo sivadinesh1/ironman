@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SetupApiService } from '../../setup-api.service';
-import { CommonApiService } from 'src/app/services/common-api.service';
+
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { CountryPhone } from 'src/app/util/validators/country-phone.model';
@@ -16,34 +16,20 @@ import { SharedService } from 'src/app/services/shared.service';
 @Component({
   selector: 'app-edit-corporates',
   templateUrl: './edit-corporates.page.html',
-  styleUrls: ['./edit-corporates.page.scss'],
+  styleUrls: ['./edit-corporates.page.scss', '../../setup.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditCorporatesPage implements OnInit {
   xdata: ICorporates;
 
-  zdata: any;
-
   submitForm: FormGroup;
 
-  errorObj: any;
 
-  name: any;
-  phone: any;
-  email: any;
-
-  line1: any;
-  line2: any;
-  state: any;
-  pincode: any;
-  id: any;
-
-  responsemsg: any;
 
   apiresponse: any;
 
   private unsubscribe$ = new SubSink();
-  countries: Array<CountryPhone>;
+
 
   validation_messages = {
     'phone': [
@@ -61,8 +47,8 @@ export class EditCorporatesPage implements OnInit {
     'line1': [
       { type: 'required', message: 'Line 1 is required.' },
     ],
-    'state': [
-      { type: 'required', message: 'State is required.' },
+    'city': [
+      { type: 'required', message: 'City is required.' },
 
     ],
     'pincode': [
@@ -75,11 +61,11 @@ export class EditCorporatesPage implements OnInit {
   };
 
   constructor(private _fb: FormBuilder, private _setupapiservuce: SetupApiService,
-    private _commonapiservice: CommonApiService, private _router: Router,
-    private _authenticationservice: AuthenticationService, private _errorservice: ErrorService,
+    private _router: Router,
+    private _authservice: AuthenticationService, private _errorservice: ErrorService,
     private _route: ActivatedRoute, private _cdr: ChangeDetectorRef, private _loadingservice: LoadingService,
 
-    private _authservice: AuthenticationService) {
+  ) {
 
     this.unsubscribe$.sink = this._route.queryParams.subscribe(params => {
       if (this._router.getCurrentNavigation().extras.state) {
@@ -89,57 +75,52 @@ export class EditCorporatesPage implements OnInit {
 
 
 
-    this._cdr.markForCheck();
-
-    // this.countries = [
-    //   new CountryPhone('IN', 'India'),
-    //   new CountryPhone('US', 'United States'),
-
-    // ];
-
-    //const country = SharedService.country;
-
     const country = new FormControl(SharedService.countries[0], Validators.required);
-
-    // const country = new FormControl(, Validators.required);
 
     this.submitForm = this._fb.group({
       id: [null, Validators.required],
       name: [null, Validators.required],
 
-      contacts: this._fb.group({
-        phone: [null, Validators.compose([
-          Validators.required, PhoneValidator.invalidCountryPhone(country)
-        ])],
+      details: this._fb.group({
 
-        email: [null, Validators.compose([
-          Validators.required,
-          Validators.pattern(SharedService.EMAIL_REGEX)
+        contact: this._fb.group({
+          phone: [null, Validators.compose([
+            Validators.required, PhoneValidator.invalidCountryPhone(country)
+          ])],
 
-        ])]
+          email: [null, Validators.compose([
+            Validators.required,
+            Validators.pattern(SharedService.EMAIL_REGEX)
+
+          ])]
+
+        }),
+
+        address: this._fb.group({
+          line1: [null, Validators.compose([
+            Validators.required
+          ])],
+
+          line2: [null],
+
+          city: [null, Validators.compose([
+            Validators.required
+          ])],
+
+          pincode: [null, Validators.compose([
+            Validators.required,
+            Validators.pattern(SharedService.PINCODE_REGEX)
+          ])],
+
+        })
 
       }),
-
-      address: this._fb.group({
-        line1: [null, Validators.compose([
-          Validators.required
-        ])],
-
-        line2: [null, Validators.compose([
-          Validators.required
-        ])],
-
-        state: [null, Validators.compose([
-          Validators.required
-        ])],
-
-        pincode: [null, Validators.compose([
-          Validators.required,
-          Validators.pattern(SharedService.PINCODE_REGEX)
-        ])],
-
-      })
-    });
+      isactive: ['Y'],
+      createdby: [],
+      createddatetime: [],
+      updatedby: [this._authservice.loggedinuserid],
+      updateddatetime: [new Date()],
+    })
 
   }
 
@@ -149,65 +130,32 @@ export class EditCorporatesPage implements OnInit {
 
   ionViewWillEnter() {
 
-    this.id = this.xdata.id;
-    this.name = this.xdata.name;
-    this.phone = this.xdata.phone;
-    this.email = this.xdata.email;
+    this.submitForm.patchValue({ id: this.xdata.id, name: this.xdata.name,  isactive: this.xdata.isactive, 
+              createdby: this.xdata.createdby, createddatetime: this.xdata.createddatetime});
 
-    this.line1 = this.xdata.line1;
-    this.line2 = this.xdata.line2;
-    this.state = this.xdata.state;
-    this.pincode = this.xdata.pincode;
+    this.submitForm.patchValue({ 'details': { 'contact': { 'phone': this.xdata.details.contact.phone } } });
+    this.submitForm.patchValue({ 'details': { 'contact': { 'email': this.xdata.details.contact.email } } });
 
-    const country = new FormControl(this.countries[0], Validators.required);
+    this.submitForm.patchValue({ 'details': { 'address': { 'line1': this.xdata.details.address.line1 } } });
+    this.submitForm.patchValue({ 'details': { 'address': { 'line2': this.xdata.details.address.line2 } } });
+    this.submitForm.patchValue({ 'details': { 'address': { 'city': this.xdata.details.address.city } } });
+    this.submitForm.patchValue({ 'details': { 'address': { 'pincode': this.xdata.details.address.pincode } } });
 
-    this.submitForm.patchValue({
-      id: this.id,
-      name: this.name,
-
-    });
-
-
-    this.submitForm.patchValue({ 'contacts': { phone: this.phone } });
-    this.submitForm.patchValue({ 'contacts': { email: this.email } });
-
-    this.submitForm.patchValue({ 'address': { line1: this.line1 } });
-    this.submitForm.patchValue({ 'address': { line2: this.line2 } });
-    this.submitForm.patchValue({ 'address': { state: this.state } });
-    this.submitForm.patchValue({ 'address': { pincode: this.pincode } });
-
+    this._cdr.markForCheck();
   }
 
 
   doSubmit(): void {
-
-    let formvalue = this.submitForm.value;
-
-
-    this._loadingservice.present('');
-
-    this.unsubscribe$.sink = this._setupapiservuce.updateCorporate(formvalue).subscribe(
+    
+    
+    this.unsubscribe$.sink = this._setupapiservuce.updateCorporate(this.submitForm.value).subscribe(
       data => {
 
         this.apiresponse = data;
 
         if (this.apiresponse.body.message === 'SUCCESS') {
-          this.responsemsg = 'Successfully Updated';
-          this._loadingservice.dismissAfter(600, `/app/list-corporates`, 'Details Updation Successful', 'middle', false, '');
+          this._loadingservice.routeAfter(600, `/app/settings/list-corporates`, 'Details Updation Successful', 'middle', false, '');
         }
-
-
-        this._cdr.markForCheck();
-      },
-      error => {
-
-        this._errorservice.logErrortoService(`updateCorporate@username=${formvalue}`, error);
-        this._loadingservice.dismiss();
-        this._loadingservice.presentToastWithOptions(this._authenticationservice.errormsg, 'middle', false, '');
-
-        this._cdr.markForCheck();
-
-
       }
 
     );
@@ -218,6 +166,14 @@ export class EditCorporatesPage implements OnInit {
 
   ngOnDestroy() {
     this.unsubscribe$.unsubscribe();
+  }
+
+  gotoListCorporates() {
+    if (!this.submitForm.pristine || this.submitForm.touched) {
+      this._loadingservice.confirmLeaving('/app/settings/list-corporates', this.submitForm);
+    } else {
+      this._router.navigate(['/app/settings/list-corporates']);
+    }
   }
 
 }

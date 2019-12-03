@@ -23,11 +23,28 @@
 
 	<div class="section-3">
 		<h3>SILVER TRAINER PACKS</h3>
-		<P>Save up to 35% with a Cult Membership</P>
+		<p>Save up to 35% with a Cult Membership</p>
 
 		<div class="scrolling-wrapper-flexbox ">
 			Silver - 1
 			<div class="card" *ngFor="let item of this.silverPackageArr" (click)="buyPacks(item)">
+				{{ item?.service_name }}
+			</div>
+
+			<!-- <div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div>
+			<div class="card"><h2>Card</h2></div> -->
+		</div>
+
+		<div class="scrolling-wrapper-flexbox ">
+			Gold - Packs
+			<div class="card" *ngFor="let item of this.goldPackageArr" (click)="buyPacks(item)">
 				{{ item?.service_name }}
 			</div>
 
@@ -58,7 +75,7 @@
 	</div>
 
 	<div class="section-4">
-		Silver
+		Silver**
 		<div *ngFor="let item of this.silverTrainers">
 			<div class="trainer-info" (click)="openBottomSheet(item)">
 				<div class="trainer-img">
@@ -71,7 +88,7 @@
 		</div>
 	</div>
 
-	<div class="section-5">
+	<!-- <div class="section-5">
 		Gold
 		<div *ngFor="let item of this?.goldTrainers">
 			{{ item?.first_name }}
@@ -90,7 +107,7 @@
 		<div *ngFor="let item of this?.premiumTrainers">
 			{{ item?.first_name }}
 		</div>
-	</div>
+	</div> -->
 
 	<div class="section-8">
 		<h3>KEY FEATURES</h3>

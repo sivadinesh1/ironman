@@ -1,9 +1,61 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>corporate-dashboard</ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button autoHide="false"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			Corporate Dashboard
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
+	<ion-content>
+		<br />
+		<div [routerLink]="['/app/settings/list-centers']" routerDirection="forward" class="corp-summary">
+			<div class="corp-name">Centers</div>
+			<div class="corp-count">{{ centerscount }}</div>
+		</div>
+		<div class="add-corporates" (click)="addCenter()">+ Add Center</div>
 
+		<ion-item-sliding #slidingItem *ngFor="let item of centerInfoList ? centerInfoList : []; let i = index">
+			<ion-card>
+				<div lines="none" color="medium">
+					<div class="center-name">
+						{{ item.center_name }}
+					</div>
+					<div class="overview">
+						<div class="items" (click)="viewProfiles(item, 'members')">
+							<div>Members</div>
+							<div>
+								{{ item.members }}
+							</div>
+						</div>
+						<div class="items" (click)="viewProfiles(item, 'trainers')">
+							<div>
+								Trainers
+							</div>
+							<div>
+								{{ item.trainers }}
+							</div>
+						</div>
+						<div class="items" (click)="viewProfiles(item, 'centers')">
+							<div>
+								Centers
+							</div>
+							<div>
+								{{ item.center_admin }}
+							</div>
+						</div>
+						<div class="items" (click)="viewProfiles(item, 'mc')">
+							<div>
+								Member Coordinators
+							</div>
+							{{ item.member_coordinators }}
+						</div>
+					</div>
+				</div>
+			</ion-card>
+		</ion-item-sliding>
+	</ion-content>
 </ion-content>

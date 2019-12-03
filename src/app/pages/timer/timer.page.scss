@@ -1,0 +1,63 @@
+p {
+	font-size: 3em;
+	color: #565656;
+	width: 100%;
+	text-align: center;
+}
+
+ion-input {
+	color: white;
+}
+
+ion-toolbar {
+	background: black;
+}
+
+.top {
+	margin: 30px;
+}
+
+.picker-toolbar.sc-ion-picker-ios {
+	border-bottom: 0;
+}
+.picker-wrapper.sc-ion-picker-ios {
+	border-top: 0;
+}
+.picker-wrapper.sc-ion-picker-ios {
+	background: #2b2b2b;
+}
+.picker-above-highlight.sc-ion-picker-ios,
+.picker-below-highlight.sc-ion-picker-ios {
+	background: rgba(0, 0, 0, 0.5);
+	border: none;
+}
+.picker-opt {
+	color: rgb(235, 229, 229);
+}
+
+.sc-ion-picker-md-h {
+	--background: rgb(80, 79, 79);
+}
+
+.picker-opt.picker-opt-selected,
+.picker-prefix,
+.picker-suffix {
+	color: #ffffff;
+}
+
+.picker-toolbar.sc-ion-picker-md {
+	background: rgb(116, 115, 115);
+}
+
+.picker-button.sc-ion-picker-md,
+.picker-button.activated.sc-ion-picker-md {
+	color: #ffffff;
+}
+
+// dnd - styling should be added for IOS also
+
+ion-fab-button button .button-inner {
+	background-color: #eee000 !important;
+	-–ion-color-base: white !important;
+	--background: red;
+}

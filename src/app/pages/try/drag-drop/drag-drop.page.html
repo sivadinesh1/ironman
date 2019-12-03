@@ -1,0 +1,36 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Drag - Drop</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<!-- <div class="example-box" cdkDrag>
+		Drag me around
+  </div> -->
+	<div (click)="doSubmit()">submit</div>
+
+	<div cdkDropListGroup>
+		<div class="example-container">
+			<h2>To do</h2>
+
+			<div
+				cdkDropList
+				cdkDropListOrientation="horizontal"
+				[cdkDropListData]="todo"
+				class="example-list1"
+				(cdkDropListDropped)="drop($event)"
+			>
+				<div class="example-box1" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+			</div>
+		</div>
+
+		<div class="example-container">
+			<h2>Done</h2>
+
+			<div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+				<div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+			</div>
+		</div>
+	</div>
+</ion-content>

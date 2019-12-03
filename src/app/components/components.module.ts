@@ -11,6 +11,9 @@ import { CountdownTimerComponent } from './countdown-timer/countdown-timer.compo
 import { CounterInputComponent } from './counter-input/counter-input.component';
 import { RatingInputComponent } from './rating-input/rating-input.component';
 import { ShellModule } from '../shell/shell.module';
+import { CurrencyPadComponent } from './currency-pad/currency-pad.component';
+import { ServicesCardComponent } from './services-card/services-card.component';
+import { AnimatedLikeComponent } from './animated-like/animated-like.component';
 
 @NgModule({
   imports: [
@@ -24,7 +27,10 @@ import { ShellModule } from '../shell/shell.module';
     ShowHidePasswordComponent,
     CountdownTimerComponent,
     CounterInputComponent,
-    RatingInputComponent
+    RatingInputComponent,
+    CurrencyPadComponent,
+    ServicesCardComponent,
+    AnimatedLikeComponent
   ],
   exports: [
     ShellModule,
@@ -32,8 +38,11 @@ import { ShellModule } from '../shell/shell.module';
     ShowHidePasswordComponent,
     CountdownTimerComponent,
     CounterInputComponent,
-    RatingInputComponent
+    RatingInputComponent,
+    CurrencyPadComponent,
+    ServicesCardComponent,
+    AnimatedLikeComponent
   ],
-  entryComponents: [],
+  entryComponents: [CurrencyPadComponent, ServicesCardComponent],
 })
 export class ComponentsModule { }

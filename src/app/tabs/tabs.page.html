@@ -1,25 +1,10 @@
 <ion-tabs>
 	<ion-tab-bar slot="bottom">
-		<ion-tab-button tab="super-admin-dashboard/{{userid}}" *ngIf="role === 'superadmin'">
-			<ion-icon src="./assets/sample-icons/tabs/categories.svg"></ion-icon>
-			<ion-label class="tab-title">Dashboard{{ userid }}</ion-label>
-		</ion-tab-button>
-		<ion-tab-button tab="admin-dashboard/{{userid}}" *ngIf="role === 'centeradmin'">
+		<ion-tab-button tab="dashboard">
 			<ion-icon src="./assets/sample-icons/tabs/categories.svg"></ion-icon>
 			<ion-label class="tab-title">Dashboard</ion-label>
 		</ion-tab-button>
-		<ion-tab-button tab="corporate-dashboard/{{userid}}" *ngIf="role === 'corporate'">
-			<ion-icon src="./assets/sample-icons/tabs/categories.svg"></ion-icon>
-			<ion-label class="tab-title">Dashboard</ion-label>
-		</ion-tab-button>
-		<ion-tab-button tab="member-dashboard/{{userid}}" *ngIf="role === 'member'">
-			<ion-icon src="./assets/sample-icons/tabs/categories.svg"></ion-icon>
-			<ion-label class="tab-title">Dashboard</ion-label>
-		</ion-tab-button>
-		<ion-tab-button tab="trainer-dashboard/{{userid}}" *ngIf="role === 'trainer'">
-			<ion-icon src="./assets/sample-icons/tabs/categories.svg"></ion-icon>
-			<ion-label class="tab-title">Dashboard</ion-label>
-		</ion-tab-button>
+
 		<ion-tab-button tab="user">
 			<ion-icon src="./assets/sample-icons/tabs/profile.svg"></ion-icon>
 			<ion-label class="tab-title">Profile</ion-label>

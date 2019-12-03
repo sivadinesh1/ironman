@@ -1,0 +1,23 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>speech-text</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	
+
+	<br />
+	<ion-item>
+		<button ion-button (click)="textToSpeech()">read Good Night</button>
+	</ion-item>
+
+	<br />
+	<ion-item>
+		<button ion-button (click)="converse()">Lets Talk</button>
+	</ion-item>
+
+	<ion-label>
+		this is what you said : {{conversation}}
+	</ion-label>
+</ion-content>

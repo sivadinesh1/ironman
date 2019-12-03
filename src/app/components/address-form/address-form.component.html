@@ -1,4 +1,4 @@
-<div [formGroup]="form">
+<div [formGroup]="addressForm">
 	<ion-label position="stacked">Address <ion-text color="danger">*</ion-text></ion-label>
 	<ion-item class="input-item">
 		<ion-input type="text" placeholder="Line 1" formControlName="line1" clearInput></ion-input>
@@ -16,7 +16,7 @@
 	</div>
 
 	<ion-item class="input-item">
-		<ion-input type="text" placeholder="Line 2" formControlName="line2" clearInput></ion-input>
+		<ion-input type="text" placeholder="Line 2 (optional)" formControlName="line2" clearInput></ion-input>
 	</ion-item>
 
 	<div class="error-container">

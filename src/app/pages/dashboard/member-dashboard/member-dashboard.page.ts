@@ -30,24 +30,24 @@ export class MemberDashboardPage implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.unsubscribe$.sink = this._testService.getFakeTest().subscribe(data => {
-      this.temp = data;
-    },
-      error => {
-        this.error = error;
+    // this.unsubscribe$.sink = this._testService.getFakeTest().subscribe(data => {
+    //   this.temp = data;
+    // },
+    //   error => {
+    //     this.error = error;
 
-      }
-    );
+    //   }
+    // );
 
-    this.unsubscribe$.sink = this.commonApiService.getActiveMemberServices(this.userid).subscribe(data => {
-      this.temp = data;
-      console.log('...............' + JSON.stringify(this.temp));
-    },
-      error => {
-        this.error = error;
+    // this.unsubscribe$.sink = this.commonApiService.getActiveMemberServices(this.userid).subscribe(data => {
+    //   this.temp = data;
+    //   console.log('...............' + JSON.stringify(this.temp));
+    // },
+    //   error => {
+    //     this.error = error;
 
-      }
-    );
+    //   }
+    // );
 
 
   }

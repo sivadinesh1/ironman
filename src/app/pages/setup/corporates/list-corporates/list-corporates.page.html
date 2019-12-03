@@ -1,36 +1,67 @@
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="start">
-			<ion-back-button defaultHref="/app/super-admin-dashboard/1"></ion-back-button>
+			<ion-back-button defaultHref="/" (click)="godash()"></ion-back-button>
 		</ion-buttons>
-
-		<ion-title>List of Corporates</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-virtual-scroll [items]="listofcorporates">
-		<ion-card *virtualItem="let item" (click)="navigate(item)">
-			<ion-item-sliding>
-				<ion-item lines="none" color="medium">
-					<ion-label>
-						<h4>{{ item.name }}</h4>
-						<p>{{ item.details.address.line1 }}</p>
-						<p>{{ item.details.address.pincode }}</p>
-					</ion-label>
-					<ion-icon name="arrow-forward" item-right [routerLink]="" routerDirection="forward"></ion-icon>
-				</ion-item>
+	<h2 class="auth-title">
+		List of Corporates
+	</h2>
 
-				<ion-item-options side="end">
-					<ion-item-option>Favorite</ion-item-option>
-					<ion-item-option color="danger">Share</ion-item-option>
-				</ion-item-options>
-			</ion-item-sliding>
+	<ion-segment padding type="ios">
+		<ion-segment-button checked="this.activetab" (ionSelect)="listCorporates('Y')">
+			<ion-label> Active</ion-label>
+		</ion-segment-button>
+		<ion-segment-button (ionSelect)="listCorporates('N')">
+			<ion-label>Inactive </ion-label>
+		</ion-segment-button>
+	</ion-segment>
+
+	<div class="search-results">{{ listofcorporates?.length || 0 }} Corporates</div>
+
+	<div class="add-circle" *ngIf="this.rowcount === 0">
+		<div *ngIf="segment === 'active'">
+			<p>Currently No active associated Corporates. Go ahead and add Corporates.</p>
+			<img src="/assets/images/plus.svg" width="36px" height="36px" (click)="gotoAdd()" />
+		</div>
+		<div *ngIf="segment === 'inactive'">
+			<p>No Inactive Corporates</p>
+		</div>
+	</div>
+
+	<ion-item-sliding #slidingItem *ngFor="let item of listofcorporates ? listofcorporates : []; let i = index">
+		<ion-card>
+			<ion-item lines="none" color="medium">
+				<ion-label>
+					<h4>{{ item?.name }}</h4>
+					<p>{{ item?.details?.address?.line1 }}</p>
+					<p>{{ item?.details?.address?.pincode }}</p>
+				</ion-label>
+				<ion-icon name="arrow-forward" item-right (click)="navigate(item)" routerDirection="forward"></ion-icon>
+			</ion-item>
+
+			<ion-item-options side="end">
+				<ion-item-option
+					color="danger"
+					*ngIf="segment === 'active'"
+					(click)="changeCorporateStatus(slidingItem, item, 'N')"
+					>Inactivate</ion-item-option
+				>
+				<ion-item-option
+					color="danger"
+					*ngIf="segment === 'inactive'"
+					(click)="changeCorporateStatus(slidingItem, item, 'Y')"
+					>Reactivate</ion-item-option
+				>
+			</ion-item-options>
 		</ion-card>
-	</ion-virtual-scroll>
+	</ion-item-sliding>
 
 	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-		<ion-fab-button [routerLink]="['/app/add-corporates']">
+		<ion-fab-button (click)="gotoAdd()">
 			<ion-icon name="add"></ion-icon>
 		</ion-fab-button>
 	</ion-fab>

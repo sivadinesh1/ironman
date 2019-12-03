@@ -1,0 +1,68 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/" (click)="godash()"></ion-back-button>
+		</ion-buttons>
+
+		<ion-title>Service  Category</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<h2 class="auth-title">
+		List of Service  Category
+	</h2>
+ 
+	<ion-segment padding type="ios" [(ngModel)]="segment">
+		<ion-segment-button value="active" (ionSelect)="listServiceCategories('Y')">
+			<ion-label> Active</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="inactive" (ionSelect)="listServiceCategories('N')">
+			<ion-label>Inactive </ion-label>
+		</ion-segment-button>
+	</ion-segment>
+	<div class="search-results">{{ listofservicecategories?.length || 0 }} Service Categories</div>
+
+	<div class="add-circle" *ngIf="this.rowcount === 0">
+		<div *ngIf="segment === 'active'">
+			<p>Currently No active associated Service categories. Go ahead and add !!!.</p>
+			<img src="/assets/images/plus.svg" width="36px" height="36px" (click)="gotoAdd()" />
+		</div>
+		<div *ngIf="segment === 'inactive'">
+			<p>No Inactive Centers</p>
+		</div>
+	</div>
+
+	<ion-item-sliding #slidingItem *ngFor="let item of listofservicecategories ? listofservicecategories : []; let i = index">
+		<ion-card>
+			<ion-item lines="none" color="medium">
+				<ion-label>
+					<h4>{{ item.name }}</h4>
+					<p>{{ item.description }}</p>
+				</ion-label>
+				<ion-icon name="arrow-forward" item-right (click)="navigate(item)" routerDirection="forward"></ion-icon>
+			</ion-item>
+
+			<ion-item-options side="end" (ionSwipe)="changeServiceCategoryStatus(slidingItem, item, 'N')">
+				<ion-item-option
+					color="danger"
+					*ngIf="segment === 'active'"
+					(click)="changeServiceCategoryStatus(slidingItem, item, 'N')"
+					>Inactivate</ion-item-option
+				>
+				<ion-item-option
+					color="danger"
+					*ngIf="segment === 'inactive'"
+					(click)="changeServiceCategoryStatus(slidingItem, item, 'Y')"
+					>Reactivate</ion-item-option
+				>
+			</ion-item-options>
+		</ion-card>
+	</ion-item-sliding>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="gotoAdd()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>

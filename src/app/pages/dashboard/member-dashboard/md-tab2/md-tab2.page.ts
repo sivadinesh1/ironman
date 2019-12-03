@@ -20,7 +20,7 @@ export class MdTab2Page implements OnInit {
   private unsubscribe$ = new SubSink();
   trainerdata: any;
   error: any;
-  center_id: any;
+  //center_id: any;
 
   trainersArr: any;
 
@@ -33,14 +33,15 @@ export class MdTab2Page implements OnInit {
 
   constructor(private commonApiService: CommonApiService, private _bottomSheet: MatBottomSheet,
     private _modalcontroller: ModalController, private cdr: ChangeDetectorRef,
+    private _authservice: AuthenticationService,
     private buyPacksService: BuyPacksService, private router: Router,
     private authenticationService: AuthenticationService) { }
 
   async ngOnInit() {
 
-    this.center_id = await this.authenticationService.getLocalStoreItems('CENTER_ID');
 
-    this.unsubscribe$.sink = this.commonApiService.getTrainers(this.center_id).subscribe(trainerdata => {
+
+    this.unsubscribe$.sink = this.commonApiService.getTrainers(this._authservice.center.id).subscribe(trainerdata => {
       this.trainersArr = trainerdata;
       console.log('...............' + JSON.stringify(this.trainersArr.obj));
 
@@ -61,12 +62,12 @@ export class MdTab2Page implements OnInit {
       }
     );
 
-    this.unsubscribe$.sink = this.commonApiService.getpackages(this.center_id).subscribe(packagedata => {
+    this.unsubscribe$.sink = this.commonApiService.getpackages(this._authservice.center.id).subscribe(packagedata => {
       this.packageDataArr = packagedata;
       console.log('........packageDataArr.......' + JSON.stringify(this.packageDataArr));
 
       this.silverPackageArr = this.packageDataArr.obj.filter((value, index, array) => {
-        if (value.service_sub_category_id === 1 && value.service_category_id === 2) {
+        if (value.service_sub_category_id === 1 && value.service_category_id === 1) {
           return true;
         }
 
@@ -74,7 +75,7 @@ export class MdTab2Page implements OnInit {
 
 
       this.goldPackageArr = this.packageDataArr.obj.filter((value, index, array) => {
-        return (value.service_sub_category_id === 2 && value.service_category_id === 2);
+        return (value.service_sub_category_id === 2 && value.service_category_id === 1);
 
       });
 

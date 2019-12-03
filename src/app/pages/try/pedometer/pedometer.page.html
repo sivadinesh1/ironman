@@ -1,0 +1,24 @@
+
+<ion-header>
+    <ion-header color="primary">
+      <ion-title>
+        Pedometer
+      </ion-title>
+    </ion-header>
+  </ion-header>
+   
+  <ion-content padding>
+  
+   
+  <ion-button ion-button full (click)="isDistanceAvailable()">Is distance Availale</ion-button>
+  <ion-button ion-button full (click)="startPedometerUpdates()" >Start Pedometer Updates</ion-button>
+
+  Values - {{pedometerData | json}}
+
+  {{pedometerData.startDate}}
+  {{pedometerData.endDate}}
+  {{pedometerData.numberOfSteps}}
+  {{pedometerData.distance}}
+
+
+  </ion-content>

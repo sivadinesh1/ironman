@@ -30,7 +30,7 @@ export class WalkthroughPage implements OnInit, AfterViewInit {
   constructor(public menu: MenuController, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.menu.enable(false);
+    // this.menu.enable(true);
   }
 
   ngAfterViewInit(): void {

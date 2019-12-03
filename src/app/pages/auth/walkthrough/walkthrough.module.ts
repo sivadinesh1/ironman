@@ -23,7 +23,7 @@ const routes: Routes = [
     IonicModule,
     SharedModule,
     ComponentsModule,
-    ComponentsModule,
+    // ComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [WalkthroughPage]

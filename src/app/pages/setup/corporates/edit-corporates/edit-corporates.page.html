@@ -1,10 +1,10 @@
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="start">
-			<ion-back-button defaultHref="/app/list-corporates"></ion-back-button>
+			<ion-button color="dark" (click)="gotoListCorporates()">
+				<ion-icon name="arrow-back"></ion-icon> Back
+			</ion-button>
 		</ion-buttons>
-
-		<ion-title>Update Corporate Info</ion-title>
 	</ion-toolbar>
 </ion-header>
 
@@ -13,11 +13,11 @@
 		Edit Corporate !
 	</h2>
 
-	<form [formGroup]="submitForm" (ngSubmit)="doSubmit()">
+	<form focusInvalidInput [formGroup]="submitForm" (ngSubmit)="doSubmit()">
 		<ion-list class="inputs-list" lines="full">
 			<ion-item class="input-item">
 				<ion-label position="floating">Name <ion-text color="danger">*</ion-text></ion-label>
-				<ion-input required type="text" formControlName="name" clearInput></ion-input>
+				<ion-input required type="text" placeholder="Enter Company Name" formControlName="name" clearInput></ion-input>
 			</ion-item>
 
 			<div class="error-container">
@@ -35,10 +35,11 @@
 				</ng-container>
 			</div>
 
-			<div formGroupName="contacts">
-				<ion-list class="inputs-list" lines="full">
+			<div formGroupName="details">
+				<div formGroupName="contact">
 					<ion-item class="input-item">
-						<ion-input type="text" placeholder="Phone Number" formControlName="phone" clearInput></ion-input>
+						<ion-label position="floating">Phone <ion-text color="danger">*</ion-text></ion-label>
+						<ion-input type="text" placeholder="Enter phone number" formControlName="phone" clearInput></ion-input>
 					</ion-item>
 
 					<div class="error-container">
@@ -46,8 +47,8 @@
 							<div
 								class="error-message"
 								*ngIf="
-									submitForm.get('contacts.phone').hasError(validation.type) &&
-									(submitForm.get('contacts.phone').dirty || submitForm.get('contacts.phone').touched)
+									submitForm.get('details.contact.phone').hasError(validation.type) &&
+									(submitForm.get('details.contact.phone').dirty || submitForm.get('details.contact.phone').touched)
 								"
 							>
 								<ion-icon name="information-circle-outline"></ion-icon>
@@ -55,20 +56,18 @@
 							</div>
 						</ng-container>
 					</div>
-				</ion-list>
 
-				<ion-list class="inputs-list" lines="full">
 					<ion-item class="input-item">
-						<ion-input type="text" placeholder="Email" formControlName="email" clearInput></ion-input>
+						<ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+						<ion-input type="text" placeholder="Enter email" formControlName="email" clearInput></ion-input>
 					</ion-item>
-
 					<div class="error-container">
 						<ng-container *ngFor="let validation of validation_messages.email">
 							<div
 								class="error-message"
 								*ngIf="
-									submitForm?.get('contacts.email').hasError(validation.type) &&
-									(submitForm?.get('contacts.email').dirty || submitForm?.get('contacts.email').touched)
+									submitForm?.get('details.contact.email').hasError(validation.type) &&
+									(submitForm?.get('details.contact.email').dirty || submitForm?.get('details.contact.email').touched)
 								"
 							>
 								<ion-icon name="information-circle-outline"></ion-icon>
@@ -76,19 +75,20 @@
 							</div>
 						</ng-container>
 					</div>
-				</ion-list>
+				</div>
 
-				<!-- 
-	
-						<ion-input type="text" placeholder="Email" formControlName="email" clearInput></ion-input>
-	
+				<div formGroupName="address">
+					<ion-item class="input-item">
+						<ion-label position="stacked">Address <ion-text color="danger">*</ion-text></ion-label>
+						<ion-input type="text" placeholder="Line 1" formControlName="line1" clearInput></ion-input>
+
 						<div class="error-container">
-							<ng-container *ngFor="let validation of validation_messages.email">
+							<ng-container *ngFor="let validation of validation_messages.line1">
 								<div
 									class="error-message"
 									*ngIf="
-										submitForm?.get('contacts.email').hasError(validation.type) &&
-										(submitForm?.get('contacts.email').dirty || submitForm?.get('contacts.email').touched)
+										submitForm.get('details.address.line1').hasError(validation.type) &&
+										(submitForm.get('details.address.line1').dirty || submitForm.get('details.address.line1').touched)
 									"
 								>
 									<ion-icon name="information-circle-outline"></ion-icon>
@@ -96,222 +96,50 @@
 								</div>
 							</ng-container>
 						</div>
-					</ion-item> -->
-			</div>
 
-			<div formGroupName="address">
-				<ion-item class="input-item">
-					<ion-label position="stacked">Address <ion-text color="danger">*</ion-text></ion-label>
-					<ion-input type="text" placeholder="Line 1" formControlName="line1" clearInput></ion-input>
+						<ion-input type="text" placeholder="Line 2 (optional)" formControlName="line2" clearInput></ion-input>
 
-					<div class="error-container">
-						<ng-container *ngFor="let validation of validation_messages.line1">
-							<div
-								class="error-message"
-								*ngIf="
-									submitForm.get('address.line1').hasError(validation.type) &&
-									(submitForm.get('address.line1').dirty || submitForm.get('address.line1').touched)
-								"
-							>
-								<ion-icon name="information-circle-outline"></ion-icon>
-								<span>{{ validation.message }}</span>
-							</div>
-						</ng-container>
-					</div>
+						<ion-input type="text" placeholder="Enter City" formControlName="city" clearInput></ion-input>
 
-					<ion-input type="text" placeholder="Line 2" formControlName="line2" clearInput></ion-input>
+						<div class="error-container">
+							<ng-container *ngFor="let validation of validation_messages.city">
+								<div
+									class="error-message"
+									*ngIf="
+										submitForm?.get('details.address.city').hasError(validation.type) &&
+										(submitForm?.get('details.address.city').dirty || submitForm?.get('details.address.city').touched)
+									"
+								>
+									<ion-icon name="information-circle-outline"></ion-icon>
+									<span>{{ validation.message }}</span>
+								</div>
+							</ng-container>
+						</div>
 
-					<ion-input type="text" placeholder="Enter State" formControlName="state" clearInput></ion-input>
+						<ion-input type="text" placeholder="Pincode" formControlName="pincode" clearInput></ion-input>
 
-					<div class="error-container">
-						<ng-container *ngFor="let validation of validation_messages.state">
-							<div
-								class="error-message"
-								*ngIf="
-									submitForm?.get('address.state').hasError(validation.type) &&
-									(submitForm?.get('address.state').dirty || submitForm?.get('address.state').touched)
-								"
-							>
-								<ion-icon name="information-circle-outline"></ion-icon>
-								<span>{{ validation.message }}</span>
-							</div>
-						</ng-container>
-					</div>
-
-					<ion-input type="text" placeholder="Pincode" formControlName="pincode" clearInput></ion-input>
-
-					<div class="error-container">
-						<ng-container *ngFor="let validation of validation_messages.pincode">
-							<div
-								class="error-message"
-								*ngIf="
-									submitForm?.get('address.pincode').hasError(validation.type) &&
-									(submitForm?.get('address.pincode').dirty || submitForm?.get('address.pincode').touched)
-								"
-							>
-								<ion-icon name="information-circle-outline"></ion-icon>
-								<span>{{ validation.message }}</span>
-							</div>
-						</ng-container>
-					</div>
-				</ion-item>
+						<div class="error-container">
+							<ng-container *ngFor="let validation of validation_messages.pincode">
+								<div
+									class="error-message"
+									*ngIf="
+										submitForm?.get('details.address.pincode').hasError(validation.type) &&
+										(submitForm?.get('details.address.pincode').dirty ||
+											submitForm?.get('details.address.pincode').touched)
+									"
+								>
+									<ion-icon name="information-circle-outline"></ion-icon>
+									<span>{{ validation.message }}</span>
+								</div>
+							</ng-container>
+						</div>
+					</ion-item>
+				</div>
 			</div>
 		</ion-list>
 
-		{{ this.responsemsg }}
-
-		<ion-button class="signup-btn" type="submit" expand="block" [disabled]="!submitForm.valid"
+		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid || submitForm.pristine"
 			>Edit Corporate</ion-button
 		>
 	</form>
-
-	<!-- <form [formGroup]="submitForm" (ngSubmit)="doSubmit()">
-		<ion-list class="inputs-list" lines="full">
-			<ion-item class="input-item">
-				<ion-input type="text" placeholder="Company / Corporate" formControlName="name" clearInput></ion-input>
-			</ion-item>
-
-			<div class="error-container">
-				<ng-container *ngFor="let validation of validation_messages.name">
-					<div
-						class="error-message"
-						*ngIf="
-							submitForm.get('name').hasError(validation.type) &&
-							(submitForm.get('name').dirty || submitForm.get('name').touched)
-						"
-					>
-						<ion-icon name="information-circle-outline"></ion-icon>
-						<span>{{ validation.message }}</span>
-					</div>
-				</ng-container>
-			</div>
-		</ion-list>
-
-		<div formGroupName="contacts">
-			<ion-list class="inputs-list" lines="full">
-				<ion-item class="input-item">
-					<ion-input type="text" placeholder="Phone Number" formControlName="phone" clearInput></ion-input>
-				</ion-item>
-
-				<div class="error-container">
-					<ng-container *ngFor="let validation of validation_messages.phone">
-						<div
-							class="error-message"
-							*ngIf="
-								submitForm.get('contacts.phone').hasError(validation.type) &&
-								(submitForm.get('contacts.phone').dirty || submitForm.get('contacts.phone').touched)
-							"
-						>
-							<ion-icon name="information-circle-outline"></ion-icon>
-							<span>{{ validation.message }}</span>
-						</div>
-					</ng-container>
-				</div>
-			</ion-list>
-
-			<ion-list class="inputs-list" lines="full">
-				<ion-item class="input-item">
-					<ion-input type="text" placeholder="Email" formControlName="email" clearInput></ion-input>
-				</ion-item>
-
-				<div class="error-container">
-					<ng-container *ngFor="let validation of validation_messages.email">
-						<div
-							class="error-message"
-							*ngIf="
-								submitForm?.get('contacts.email').hasError(validation.type) &&
-								(submitForm?.get('contacts.email').dirty || submitForm?.get('contacts.email').touched)
-							"
-						>
-							<ion-icon name="information-circle-outline"></ion-icon>
-							<span>{{ validation.message }}</span>
-						</div>
-					</ng-container>
-				</div>
-			</ion-list>
-		</div>
-
-		<div formGroupName="address">
-			<ion-list class="inputs-list" lines="full">
-				<ion-item class="input-item">
-					<ion-input type="text" placeholder="Line 1" formControlName="line1" clearInput></ion-input>
-				</ion-item>
-
-				<div class="error-container">
-					<ng-container *ngFor="let validation of validation_messages.line1">
-						<div
-							class="error-message"
-							*ngIf="
-								submitForm.get('address.line1').hasError(validation.type) &&
-								(submitForm.get('address.line1').dirty || submitForm.get('address.line1').touched)
-							"
-						>
-							<ion-icon name="information-circle-outline"></ion-icon>
-							<span>{{ validation.message }}</span>
-						</div>
-					</ng-container>
-				</div>
-			</ion-list>
-
-			<ion-list class="inputs-list" lines="full">
-				<ion-item class="input-item">
-					<ion-input type="text" placeholder="Line 2" formControlName="line2" clearInput></ion-input>
-				</ion-item>
-			</ion-list>
-
-			<ion-list class="inputs-list" lines="full">
-				<ion-item class="input-item">
-					<ion-input type="text" placeholder="Enter State" formControlName="state" clearInput></ion-input>
-				</ion-item>
-
-				<div class="error-container">
-					<ng-container *ngFor="let validation of validation_messages.state">
-						<div
-							class="error-message"
-							*ngIf="
-								submitForm?.get('address.state').hasError(validation.type) &&
-								(submitForm?.get('address.state').dirty || submitForm?.get('address.state').touched)
-							"
-						>
-							<ion-icon name="information-circle-outline"></ion-icon>
-							<span>{{ validation.message }}</span>
-						</div>
-					</ng-container>
-				</div>
-			</ion-list>
-
-			<ion-list class="inputs-list" lines="full">
-				<ion-item class="input-item">
-					<ion-input type="text" placeholder="Pincode" formControlName="pincode" clearInput></ion-input>
-				</ion-item>
-
-				<div class="error-container">
-					<ng-container *ngFor="let validation of validation_messages.pincode">
-						<div
-							class="error-message"
-							*ngIf="
-								submitForm?.get('address.pincode').hasError(validation.type) &&
-								(submitForm?.get('address.pincode').dirty || submitForm?.get('address.pincode').touched)
-							"
-						>
-							<ion-icon name="information-circle-outline"></ion-icon>
-							<span>{{ validation.message }}</span>
-						</div>
-					</ng-container>
-				</div>
-			</ion-list>
-		</div>
-
-		{{ this.responsemsg }}
-
-		<ion-button class="signup-btn" type="submit" expand="block" [disabled]="!submitForm.valid"
-			>Edit Corporate</ion-button
-		>
-	</form> -->
 </ion-content>
-
-<!-- 
-
--OR-
-
-this.form.get(['person', 'name']); -->

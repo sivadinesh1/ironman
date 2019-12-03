@@ -1,7 +1,7 @@
-import { Component, forwardRef, OnDestroy } from '@angular/core';
+import { Component, forwardRef, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormBuilder, FormGroup, Validators, FormControl, NG_VALIDATORS } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
+import { SharedService } from 'src/app/services/shared.service';
 
 export interface NameFormValues {
 
@@ -12,6 +12,7 @@ export interface NameFormValues {
   selector: 'app-name-form',
   templateUrl: './name-form.component.html',
   styleUrls: ['./name-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -25,10 +26,9 @@ export interface NameFormValues {
     }
   ]
 })
-export class NameFormComponent implements ControlValueAccessor, OnDestroy {
-  form: FormGroup;
+export class NameFormComponent implements ControlValueAccessor, OnInit, OnDestroy {
+  nameForm: FormGroup;
   subscriptions: Subscription[] = [];
-
 
   validation_messages = {
 
@@ -41,63 +41,81 @@ export class NameFormComponent implements ControlValueAccessor, OnDestroy {
   };
 
   get value(): NameFormValues {
-    return this.form.value;
+    return this.nameForm.value;
   }
 
   set value(value: NameFormValues) {
-    this.form.setValue(value);
+    this.nameForm.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
 
   get nameControl() {
-    return this.form.controls.name;
+    return this.nameForm.controls.name1;
   }
 
 
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private _cdr: ChangeDetectorRef, ) {
+    this.nameForm = this.formBuilder.group({
 
-
-
-    this.form = this.formBuilder.group({
-
-      name: ['', Validators.compose([
+      name1: ['', Validators.compose([
         Validators.required,
+
       ])]
 
     });
 
     this.subscriptions.push(
-      this.form.valueChanges.subscribe(value => {
+      this.nameForm.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched();
+        this._cdr.markForCheck();
       })
     );
+
   }
+
+  ngAfterViewInit() {
+
+  }
+
+  ngOnInit() {
+
+  }
+
+
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+    this._cdr.markForCheck();
   }
 
-  onChange: any = () => { };
-  onTouched: any = () => { };
+  onChange: any = () => {
+    this._cdr.markForCheck();
+  };
+  onTouched: any = () => {
+    this._cdr.markForCheck();
+  };
 
   registerOnChange(fn) {
     this.onChange = fn;
+    this._cdr.markForCheck();
   }
 
   writeValue(value) {
     if (value) {
       this.value = value;
+      this._cdr.markForCheck();
     }
   }
 
   registerOnTouched(fn) {
     this.onTouched = fn;
+    this._cdr.markForCheck();
   }
 
   validate(_: FormControl) {
-    return this.form.valid ? null : { profile: { valid: false, }, };
+    return this.nameForm.valid ? null : { name1: { valid: false, }, };
   }
 }

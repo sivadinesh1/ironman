@@ -7,21 +7,49 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 import { CommonApiService } from './common-api.service';
+import { LoadingService } from './loading.service';
+import { AuthenticationService } from './authentication.service';
+import { ErrorService } from './error.service';
 
 
 
 export class HttpErrorInterceptor implements HttpInterceptor {
+  token: any;
+  username: any;
 
-  constructor(private commonapiservice: CommonApiService, ) { }
+  constructor(private commonapiservice: CommonApiService, private _errorservice: ErrorService,
+    private _loadingservice: LoadingService,
+    private _authservice: AuthenticationService) { }
 
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    this.token = this._authservice.token;
+    this.username = this._authservice.username;
+
+    if (this.username && this.token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: this.token
+        }
+      })
+    }
+
     return next.handle(request)
       .pipe(
         retry(1),
+        map((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            console.log('event--->>>', event);
+
+          }
+
+          return event;
+        }),
         catchError((error: HttpErrorResponse) => {
+
           let errorMessage = '';
           if (error.error instanceof ErrorEvent) {
             // client-side error
@@ -30,6 +58,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             // server-side error
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
           }
+          this._loadingservice.dismiss();
+
+          if (request.url.indexOf('capture-error') === -1) {
+            this._errorservice.logErrortoService(`errorMessage`, error);
+            this._loadingservice.presentToastWithOptions(this._authservice.errormsg, 'middle', false, '');
+          }
+
 
           return throwError(errorMessage);
         })

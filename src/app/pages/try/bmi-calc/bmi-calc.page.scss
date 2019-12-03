@@ -1,0 +1,18 @@
+.rangestyle {
+	font-size: 28px;
+	color: #f73946;
+}
+
+ion-range {
+	--knob-background: #f73946;
+	--bar-height: 7px;
+	--height: 100px;
+	--bar-background: #969292;
+	--bar-border-radius: 20px;
+	--knob-border-radius: 20px;
+}
+
+.metric-style {
+	font-size: 18px;
+	color: grey;
+}

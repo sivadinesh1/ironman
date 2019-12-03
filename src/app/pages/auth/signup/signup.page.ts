@@ -94,7 +94,7 @@ export class SignupPage implements OnInit {
 
 
   ngOnInit(): void {
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
 
   async showTermsModal() {
@@ -166,7 +166,7 @@ export class SignupPage implements OnInit {
         } else if (this.apiresponse.body.message === 'ERROR') {
 
           this.responsemsg = 'OTP Not Sent, Check internet Connection';
-          this.loadingservice.dismiss();
+          
 
           this.cdr.markForCheck();
           //   this.returnflag = false;
@@ -193,11 +193,11 @@ export class SignupPage implements OnInit {
           this.router.navigate([`auth/verify-mobile-number/${username}/${data.obj.id}`]);
           this.invalidLogin = false;
         } else if (data.message === 'FAILURE') {
-          if (data.additionalInfo === 'DUPLICATE_USER') {
+          if (data.additionalinfo === 'DUPLICATE_USER') {
             this.responsemsg = "Duplicate User";
-          } else if (data.additionalInfo === 'USER_NOT_EXIST') {
+          } else if (data.additionalinfo === 'USER_NOT_EXIST') {
             this.responsemsg = "Mobile number is not associated with partner Gyms. Please contact your Gym to get this resolved. ";
-          } else if (data.additionalInfo === 'SERVER_ERROR') {
+          } else if (data.additionalinfo === 'SERVER_ERROR') {
             this.responsemsg = 'Server Error. Contact Administrator.'
           } else {
             this.responsemsg = "Signup Failure";

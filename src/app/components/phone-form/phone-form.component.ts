@@ -2,8 +2,6 @@ import { Component, forwardRef, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormBuilder, FormGroup, Validators, FormControl, NG_VALIDATORS } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
-import { PhoneValidator } from 'src/app/util/validators/phone.validator';
-import { CountryPhone } from 'src/app/util/validators/country-phone.model';
 
 export interface PhoneFormValues {
 
@@ -28,60 +26,47 @@ export interface PhoneFormValues {
   ]
 })
 export class PhoneFormComponent implements ControlValueAccessor, OnDestroy {
-  form: FormGroup;
+  phoneForm: FormGroup;
   subscriptions: Subscription[] = [];
-
-  countries: Array<CountryPhone>;
 
   validation_messages = {
 
     'phone': [
       { type: 'required', message: 'Phone is required.' },
-      { type: 'pattern', message: 'Enter a valid Phone Number.' }
+      { type: 'pattern', message: 'Enter a valid Phone.' }
 
     ]
 
   };
 
   get value(): PhoneFormValues {
-    return this.form.value;
+    return this.phoneForm.value;
   }
 
   set value(value: PhoneFormValues) {
-    this.form.setValue(value);
+    this.phoneForm.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
 
   get phoneControl() {
-    return this.form.controls.phone;
+    return this.phoneForm.controls.phone;
   }
 
 
 
   constructor(private formBuilder: FormBuilder) {
-    this.countries = [
-      new CountryPhone('IN', 'India'),
-      new CountryPhone('US', 'United States'),
-
-    ];
-
-    const country = new FormControl(this.countries[0], Validators.required);
-
-
-
-
-    this.form = this.formBuilder.group({
+    this.phoneForm = this.formBuilder.group({
 
       phone: ['', Validators.compose([
         Validators.required,
-        PhoneValidator.invalidCountryPhone(country)
+        Validators.pattern(SharedService.PHONE_REGEX)
       ])]
 
     });
 
     this.subscriptions.push(
-      this.form.valueChanges.subscribe(value => {
+      this.phoneForm.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched();
       })
@@ -110,6 +95,6 @@ export class PhoneFormComponent implements ControlValueAccessor, OnDestroy {
   }
 
   validate(_: FormControl) {
-    return this.form.valid ? null : { profile: { valid: false, }, };
+    return this.phoneForm.valid ? null : { profile: { valid: false, }, };
   }
 }

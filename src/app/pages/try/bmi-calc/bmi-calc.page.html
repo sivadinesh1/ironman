@@ -1,0 +1,51 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>bmi-calc</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-label>
+		What's your BMI?
+	</ion-label>
+	<form focusInvalidInput [formGroup]="submitForm" (ngSubmit)="doSubmit()">
+		<ion-item>
+			<ion-label>
+				Weight
+			</ion-label>
+			<ion-range
+				formControlName="weight"
+				min="0"
+				max="200"
+				color="vibrantred"
+				value="dfweight"
+				step="1"
+				mode="ios"
+				(ionChange)="rangeWeightChange($event)"
+			>
+				<ion-label slot="end" class="rangestyle">{{dfweight}}<span class="metric-style">cm</span></ion-label>
+			</ion-range>
+		</ion-item>
+		<ion-item>
+			<ion-label>
+				Height
+			</ion-label>
+			<ion-range
+				formControlName="height"
+				min="0"
+				max="200"
+				color="vibrantred"
+				value="100"
+				step="1"
+				mode="ios"
+				(ionChange)="rangeHeightChange($event)"
+			>
+				<ion-label slot="end" class="rangestyle">{{dfheight}}<span class="metric-style">cm</span></ion-label>
+			</ion-range>
+		</ion-item>
+
+		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid">Calculate</ion-button>
+
+		Your BMI - {{bmi}}
+	</form>
+</ion-content>

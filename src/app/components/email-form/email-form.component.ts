@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
 
 export interface EmailFormValues {
-  
+
   email: number;
 }
 
@@ -26,7 +26,7 @@ export interface EmailFormValues {
   ]
 })
 export class EmailFormComponent implements ControlValueAccessor, OnDestroy {
-  form: FormGroup;
+  emailForm: FormGroup;
   subscriptions: Subscription[] = [];
 
   validation_messages = {
@@ -40,33 +40,33 @@ export class EmailFormComponent implements ControlValueAccessor, OnDestroy {
   };
 
   get value(): EmailFormValues {
-    return this.form.value;
+    return this.emailForm.value;
   }
 
   set value(value: EmailFormValues) {
-    this.form.setValue(value);
+    this.emailForm.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
 
   get emailControl() {
-    return this.form.controls.email;
+    return this.emailForm.controls.email;
   }
 
 
 
   constructor(private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
-      
+    this.emailForm = this.formBuilder.group({
+
       email: ['', Validators.compose([
         Validators.required,
         Validators.pattern(SharedService.EMAIL_REGEX)
       ])]
-      
+
     });
 
     this.subscriptions.push(
-      this.form.valueChanges.subscribe(value => {
+      this.emailForm.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched();
       })
@@ -95,6 +95,6 @@ export class EmailFormComponent implements ControlValueAccessor, OnDestroy {
   }
 
   validate(_: FormControl) {
-    return this.form.valid ? null : { profile: { valid: false, }, };
+    return this.emailForm.valid ? null : { profile: { valid: false, }, };
   }
 }

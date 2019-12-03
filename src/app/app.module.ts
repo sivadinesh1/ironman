@@ -26,6 +26,31 @@ import { HttpErrorInterceptor } from './services/http-error-interceptor';
 import { ConfigService } from './services/config.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormDirective } from './util/directives/form.directive';
+import { NameFormComponent } from './components/name-form/name-form.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { Contacts } from '@ionic-native/contacts/ngx';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { Instagram } from '@ionic-native/instagram/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { Pedometer } from '@ionic-native/pedometer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+
+
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
+import { MediaCapture } from '@ionic-native/media-capture/ngx';
+import { Media } from '@ionic-native/media/ngx';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 
 const appConfig = (config: ConfigService) => {
@@ -44,8 +69,9 @@ const appConfig = (config: ConfigService) => {
   providers: [
     StatusBar,
     SplashScreen,
+    LocalNotifications,
 
-    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
@@ -59,7 +85,25 @@ const appConfig = (config: ConfigService) => {
       deps: [ConfigService]
 
     },
-    Network, OpenNativeSettings, NativeStorage, GooglePlus, Facebook
+    Network, OpenNativeSettings, NativeStorage, GooglePlus, Facebook,
+    BarcodeScanner,
+    Base64ToGallery,
+    SMS,
+    CallNumber,
+    Contacts,
+    SpeechRecognition,
+    TextToSpeech,
+    Instagram,
+    Camera,
+    Pedometer,
+    SocialSharing,
+    OneSignal,
+    ImagePicker,
+    MediaCapture,
+    Media,
+    StreamingMedia,
+    PhotoViewer,
+    File,
   ],
   bootstrap: [AppComponent]
 })

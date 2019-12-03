@@ -38,15 +38,7 @@ export class TrainerDashboardPage implements OnInit, OnDestroy {
       }
     );
 
-    this.unsubscribe$.sink = this.commonApiService.getActiveMemberServices(this.userid).subscribe(data => {
-      this.temp = data;
-      console.log('...............' + JSON.stringify(this.temp));
-    },
-      error => {
-        this.error = error;
-
-      }
-    );
+  
 
 
   }

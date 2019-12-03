@@ -1,23 +1,21 @@
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
+			<ion-menu-button autoHide="false" (click)="toggleMenu()"> </ion-menu-button>
 		</ion-buttons>
 		<ion-title>
-			Super Admin
+			Super Admin Dashboard
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
 	<ion-content>
-		
 		<br />
-		<div [routerLink]="['/app/list-corporates']" class="corp-summary">
-			<div class="corp-name"> Corporates / Companies </div>
+		<div [routerLink]="['/app/settings/list-corporates']" class="corp-summary">
+			<div class="corp-name">Corporates / Companies</div>
 			<div class="corp-count">{{ corpcount }}</div>
-			
 		</div>
-		
+		<div class="add-corporates" (click)="addCorporate()">+ Add Corporates</div>
 	</ion-content>
 </ion-content>

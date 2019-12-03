@@ -1,9 +1,47 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>ad-tab1</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="center_name">
+	<div>Center Name</div>
+	<div>
+		{{ centerInfoList?.center_name }}
+	</div>
+</div>
 
-<ion-content>
+<div *ngFor="let item of centerInfoList ? centerInfoList : []; let i = index" class="overview">
+	<div class="item1">
+		<div class="sub-item">
+			Members
+		</div>
+		<div class="sub-item" (click)="viewProfiles(item, 'members')">
+			{{ item.members }}
+		</div>
+	</div>
+	<div class="item2">
+		<div class="sub-item" (click)="viewProfiles(item, 'trainers')">
+			Trainers
+		</div>
+		<div class="sub-item">
+			{{ item.trainers }}
+		</div>
+	</div>
+	<div class="item3">
+		<div class="sub-item" (click)="viewProfiles(item, 'mc')">
+			Member Coordinators
+		</div>
+		<div class="sub-item">
+			{{ item.member_coordinators }}
+		</div>
+	</div>
+	<div class="item4">
+		<div class="sub-item">
+			Center Admin
+		</div>
+		<div class="sub-item" (click)="viewProfiles(item, 'ca')">
+			{{ item.center_admin }}
+		</div>
+	</div>
+</div>
 
-</ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+	<ion-fab-button >
+		<ion-icon name="add"></ion-icon>
+	</ion-fab-button>
+</ion-fab>

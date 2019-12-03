@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SetupApiService } from '../../setup/setup-api.service';
 
 import { ErrorObject } from '../../../util/errorobject';
@@ -9,6 +9,7 @@ import { CommonApiService } from 'src/app/services/common-api.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ErrorService } from 'src/app/services/error.service';
+import { NavController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-super-admin-dashboard',
@@ -28,38 +29,41 @@ export class SuperAdminDashboardPage implements OnInit {
   private unsubscribe$ = new SubSink();
 
   constructor(private route: ActivatedRoute, private _loadingservice: LoadingService,
-    private _authenticationservice: AuthenticationService, private _cdr: ChangeDetectorRef,
+    private _authervice: AuthenticationService, private _cdr: ChangeDetectorRef,
+    private _navController: NavController,
     private _commonapiservice: CommonApiService, private _errorservice: ErrorService,
+    private _router: Router, public menuCtrl: MenuController,
     private setupapiservice: SetupApiService) {
     this.userid = this.route.snapshot.paramMap.get('userid');
-    this._loadingservice.present('');
+
+  }
+
+  ionViewWillEnter() {
 
     this.unsubscribe$.sink = this.setupapiservice.getCorporatesCount('Y').subscribe(
       data => {
 
         this.apiDataRes = data;
-        this.corpcount = this.apiDataRes.additionalInfo;
-        this._loadingservice.dismiss();
-        this._cdr.markForCheck();
-      },
-      error => {
 
-        this._errorservice.logErrortoService(`getCorporatesCount@status='Y'`, error);
-        this._loadingservice.dismiss();
-        this._loadingservice.presentToastWithOptions(this._authenticationservice.errormsg, 'bottom', false, '');
+        this.corpcount = this.apiDataRes.additionalinfo;
 
         this._cdr.markForCheck();
+
       }
     );
-
-
-
   }
 
-
-
-
   ngOnInit() {
+  }
+
+  addCorporate() {
+    this._router.navigate([`/app/settings/add-corporates`]);
+  }
+
+  toggleMenu() {
+    
+    this.menuCtrl.toggle(); //Add this method to your button click function
+    this._cdr.markForCheck();
   }
 
 }

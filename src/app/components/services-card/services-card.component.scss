@@ -1,0 +1,25 @@
+.select-modal {
+	.modal-wrapper {
+		width: 600px;
+		left: calc(50% - (600px / 2));
+		height: 500px;
+		top: calc(50% - (500px / 2));
+		overflow: scroll !important;
+	}
+}
+
+.modal-wrapper {
+	overflow: scroll !important;
+}
+
+ion-modal {
+	padding: 30px;
+	background: rgba(0, 0, 0, 0.5);
+	ion-content {
+		border-radius: 25px;
+	}
+}
+
+.select-modal {
+	--background: #f4b004;
+}

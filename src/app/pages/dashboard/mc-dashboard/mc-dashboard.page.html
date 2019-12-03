@@ -1,0 +1,213 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button autoHide="false"></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			Member Co-ordinator
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-segment>
+		<ion-segment-button (click)="show('tab1')">
+			<ion-label>At Center</ion-label>
+		</ion-segment-button>
+		<ion-segment-button checked (click)="show('tab2')">
+			<ion-label>1 on 1</ion-label>
+		</ion-segment-button>
+		<ion-segment-button (click)="show('tab3')">
+			<ion-label>At Home</ion-label>
+		</ion-segment-button>
+		<ion-segment-button (click)="show('tab4')">
+			<ion-label>Gear</ion-label>
+		</ion-segment-button>
+	</ion-segment>
+
+	<div *ngIf="tab1">
+		<app-mc-tab1></app-mc-tab1>
+	</div>
+
+	<div *ngIf="tab2">
+		<app-mc-tab2></app-mc-tab2>
+	</div>
+	<div *ngIf="tab3">
+		<app-mc-tab3></app-mc-tab3>
+	</div>
+	<div *ngIf="tab4">
+		<app-mc-tab4></app-mc-tab4>
+	</div>
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addEnquiry()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addRating()">
+					<ion-icon name="add"></ion-icon>
+				</ion-fab-button>
+			</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addSlider()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+					<ion-fab-button (click)="addScrollAnimate()">
+								<ion-icon name="add"></ion-icon>
+							</ion-fab-button>
+						</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addScrollVanish()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addAnimatedHeartLike()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addAnimateList()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addCart()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>  -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addTimer()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>  -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+			<ion-fab-button (click)="addCalci()">
+				<ion-icon name="add"></ion-icon>
+			</ion-fab-button>
+		</ion-fab>  -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addMeditation()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addNotification()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addBreathe()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> 
+	 -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="animatedDiv()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+			<ion-fab-button (click)="dragDrop()">
+				<ion-icon name="add"></ion-icon>
+			</ion-fab-button>
+		</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+				<ion-fab-button (click)="eventCalendar()">
+					<ion-icon name="add"></ion-icon>
+				</ion-fab-button>
+			</ion-fab>
+
+			 -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="bmiCalc()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="qrCode()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+	<!-- 
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="sms()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="contactMgmt()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="speechText()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="instagram()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+			<ion-fab-button (click)="pedometer()">
+				<ion-icon name="add"></ion-icon>
+			</ion-fab-button>
+		</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="socialshare()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="media()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+			<ion-fab-button (click)="pay('1')">
+				<ion-icon name="add"></ion-icon>
+			</ion-fab-button>
+		</ion-fab> -->
+
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+			<ion-fab-button (click)="imageCrop()">
+				<ion-icon name="add"></ion-icon>
+			</ion-fab-button>
+		</ion-fab>
+
+
+		
+
+</ion-content>
+
+<!-- to exclude spec.ts files in vscode 
+https://www.freakyjolly.com/vs-code-how-to-hide-spec-ts-test-files-from-sidebar-file-explorer/  -->
+<!-- compodoc -->
+<!-- https://www.youtube.com/watch?v=xJSKZ1DE4Go -->

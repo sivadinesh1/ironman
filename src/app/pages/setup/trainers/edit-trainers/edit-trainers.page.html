@@ -1,0 +1,132 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/" ></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" padding>
+	<h2 class="auth-title">
+		Edit Trainers !
+	</h2>
+	<form focusInvalidInput [formGroup]="submitForm" (ngSubmit)="doSubmit()">
+		<ion-list class="inputs-list" lines="full">
+			<div formGroupName="trainuser">
+				<ion-item class="input-item">
+					<ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
+					<ion-input type="text" placeholder="Enter First Name" formControlName="firstname" clearInput></ion-input>
+				</ion-item>
+
+				<div class="error-container">
+					<ng-container *ngFor="let validation of validation_messages.firstname">
+						<div
+							class="error-message"
+							*ngIf="
+								submitForm.get('trainuser.firstname').hasError(validation.type) &&
+								(submitForm.get('trainuser.firstname').dirty || submitForm.get('trainuser.firstname').touched)
+							"
+						>
+							<ion-icon name="information-circle-outline"></ion-icon>
+							<span>{{ validation.message }}</span>
+						</div>
+					</ng-container>
+				</div>
+
+				<ion-item class="input-item">
+					<ion-label position="floating">mobilenumber <ion-text color="danger">*</ion-text></ion-label>
+					<ion-input
+						type="text"
+						placeholder="Enter Mobile number"
+						formControlName="mobilenumber" readonly
+						
+					></ion-input>
+				</ion-item>
+
+				<div class="error-container">
+					<ng-container *ngFor="let validation of validation_messages.mobilenumber">
+						<div
+							class="error-message"
+							*ngIf="
+								submitForm.get('trainuser.mobilenumber').hasError(validation.type) &&
+								(submitForm.get('trainuser.mobilenumber').dirty || submitForm.get('trainuser.mobilenumber').touched)
+							"
+						>
+							<ion-icon name="information-circle-outline"></ion-icon>
+							<span>{{ validation.message }}</span>
+						</div>
+					</ng-container>
+				</div>
+
+				<ion-item class="input-item">
+					<ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+					<ion-input type="text" placeholder="Enter email" formControlName="email" clearInput></ion-input>
+				</ion-item>
+				<div class="error-container">
+					<ng-container *ngFor="let validation of validation_messages.email">
+						<div
+							class="error-message"
+							*ngIf="
+								submitForm?.get('trainuser.email').hasError(validation.type) &&
+								(submitForm?.get('trainuser.email').dirty || submitForm?.get('trainuser.email').touched)
+							"
+						>
+							<ion-icon name="information-circle-outline"></ion-icon>
+							<span>{{ validation.message }}</span>
+						</div>
+					</ng-container>
+				</div>
+
+				<ion-chip
+					*ngFor="let item of listGenderItems; let idx = index"
+					[ngStyle]="{ background: item.selected ? '#FF5733' : '#33FF93' }"
+					(click)="onGenderClick(item)"
+				>
+					<ion-label>
+						{{ item.gender }}
+					</ion-label>
+				</ion-chip>
+			</div>
+			<ion-item class="input-item">
+				<ion-label position="floating">Trainer Fee <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input type="number" placeholder="Trainer Fee" formControlName="trainerfee" clearInput></ion-input>
+			</ion-item>
+			<div class="error-container">
+				<ng-container *ngFor="let validation of validation_messages.trainerfee">
+					<div
+						class="error-message"
+						*ngIf="
+							submitForm?.get('trainerfee').hasError(validation.type) &&
+							(submitForm?.get('trainerfee').dirty || submitForm?.get('trainerfee').touched)
+						"
+					>
+						<ion-icon name="information-circle-outline"></ion-icon>
+						<span>{{ validation.message }}</span>
+					</div>
+				</ng-container>
+			</div>
+
+			<!-- <ion-chip
+				*ngFor="let item of levels; let idx = index"
+				[class.selected]="idx === currentSelected"
+				(click)="onItemClicked(idx, item)"
+			>
+				<ion-label>
+					{{ item }}
+				</ion-label>
+      </ion-chip> -->
+
+			<ion-chip
+				*ngFor="let item of listLevelsItems; let idx = index"
+				[ngStyle]="{ background: item.selected ? '#FF5733' : '#33FF93' }"
+				(click)="onItemClick(item)"
+			>
+				<ion-label>
+					{{ item.level }}
+				</ion-label>
+			</ion-chip>
+		</ion-list>
+
+		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid">Edit Trainer</ion-button>
+	</form>
+</ion-content>

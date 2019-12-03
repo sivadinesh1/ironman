@@ -1,0 +1,119 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/" (click)="goListCenters()" ></ion-back-button>
+      </ion-buttons>
+      
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="form-content" padding>
+    <h2 class="auth-title">
+      Add Center !
+    </h2>
+    <form focusInvalidInput [formGroup]="submitForm" (ngSubmit)="doSubmit()">
+      <ion-list class="inputs-list" lines="full">
+        <ion-item class="input-item">
+          <ion-label position="floating">Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required type="text" placeholder="Enter center name" formControlName="name" clearInput></ion-input>
+        </ion-item>
+  
+        <div class="error-container">
+          <ng-container *ngFor="let validation of validation_messages.name">
+            <div class="error-message" *ngIf="submitForm.get('name').hasError(validation.type) &&
+                (submitForm.get('name').dirty || submitForm.get('name').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </div>
+  
+        <div formGroupName="details">
+        <div formGroupName="contact">
+          <ion-item class="input-item">
+            <ion-label position="floating">Phone <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="text" placeholder="Enter phone number" formControlName="phone" clearInput></ion-input>
+          </ion-item>
+  
+          <div class="error-container">
+            <ng-container *ngFor="let validation of validation_messages.phone">
+              <div class="error-message" *ngIf="submitForm.get('details.contact.phone').hasError(validation.type) &&
+                  (submitForm.get('details.contact.phone').dirty || submitForm.get('details.contact.phone').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </ng-container>
+          </div>
+  
+          <ion-item class="input-item">
+            <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="text" placeholder="Enter email" formControlName="email" clearInput></ion-input>
+          </ion-item>
+          <div class="error-container">
+            <ng-container *ngFor="let validation of validation_messages.email">
+              <div class="error-message" *ngIf="submitForm?.get('details.contact.email').hasError(validation.type) &&
+                  (submitForm?.get('details.contact.email').dirty || submitForm?.get('details.contact.email').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+  
+        <div formGroupName="address">
+          <ion-item class="input-item">
+            <ion-label position="stacked">Address <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="text" placeholder="Line 1" formControlName="line1" clearInput></ion-input>
+  
+            <div class="error-container">
+              <ng-container *ngFor="let validation of validation_messages.line1">
+                <div
+                  class="error-message"
+                  *ngIf="
+                    submitForm.get('details.address.line1').hasError(validation.type) &&
+                    (submitForm.get('details.address.line1').dirty || submitForm.get('details.address.line1').touched)
+                  "
+                >
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  <span>{{ validation.message }}</span>
+                </div>
+              </ng-container>
+            </div>
+  
+            <ion-input type="text" placeholder="Line 2 (optional)" formControlName="line2" clearInput></ion-input>
+  
+            <ion-input type="text" placeholder="Enter City" formControlName="city" clearInput></ion-input>
+  
+            <div class="error-container">
+              <ng-container *ngFor="let validation of validation_messages.city">
+                <div class="error-message" *ngIf="submitForm?.get('details.address.city').hasError(validation.type) &&
+                    (submitForm?.get('details.address.city').dirty || submitForm?.get('details.address.city').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  <span>{{ validation.message }}</span>
+                </div>
+              </ng-container>
+            </div>
+  
+            <ion-input type="text" placeholder="Pincode" formControlName="pincode" clearInput></ion-input>
+  
+            <div class="error-container">
+              <ng-container *ngFor="let validation of validation_messages.pincode">
+                <div class="error-message" *ngIf="submitForm?.get('details.address.pincode').hasError(validation.type) &&
+                    (submitForm?.get('details.address.pincode').dirty || submitForm?.get('details.address.pincode').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  <span>{{ validation.message }}</span>
+                </div>
+              </ng-container>
+            </div>
+          </ion-item>
+        </div>
+      </div>
+      </ion-list>
+  
+      
+      <ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid"
+        >Add Center</ion-button
+      >
+    </form>
+  </ion-content>
+  

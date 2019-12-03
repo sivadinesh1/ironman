@@ -9,6 +9,8 @@ import { Platform, } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { restApiUrl } from 'src/environments/environment';
+import { Corporates } from '../pages/setup/corporates/corporates';
+
 
 
 @Injectable({
@@ -17,17 +19,24 @@ import { restApiUrl } from 'src/environments/environment';
 export class AuthenticationService {
 
   restApiUrl = restApiUrl;
+  usrobj: any;
 
   userdata: Observable<any>;
   authState = new BehaviorSubject(null);
 
   role: any;
   userid: any;
-
+  loggedinuserid: number;
+  center: any;
+  corporate: Corporates;
 
   storagemode: any;
   device: any;
   errormsg = 'Something went wrong. Contact administrator.';
+
+  token: any;
+  username: any;
+
 
   constructor(
     private httpClient: HttpClient, private plt: Platform,
@@ -50,6 +59,8 @@ export class AuthenticationService {
 
       this.loadUser();
 
+      this.getLocalData();
+
       // Filter out null values which is first behaviour Subject value
       this.userdata = this.authState
         .asObservable()
@@ -62,7 +73,7 @@ export class AuthenticationService {
 
   loadUser() {
     // Normally load e.g. JWT at this point
-    this.storage.get('localstoredata').then(data => {
+    this.storagemode.get('localstoredata').then(data => {
       if (data) {
         this.authState.next(data);
       } else {
@@ -92,12 +103,24 @@ export class AuthenticationService {
 
           if (userData.message === 'SUCCESS') {
             this.storagemode.clear();
-            let tokenStr = 'Bearer ' + userData.additionalInfo;
+            let tokenStr = 'Bearer ' + userData.additionalinfo;
 
             this.storagemode.set('username', username);
             this.storagemode.set('token', tokenStr);
             this.storagemode.set('localstoredata', userData.obj);
             this.authState.next(userData.obj);
+
+            this.token = tokenStr;
+            this.username = username;
+
+            this.loggedinuserid = userData.obj.id;
+            if (userData.obj.center !== null) {
+              this.center = userData.obj.center;
+            }
+
+
+            this.corporate = userData.obj.corporate;
+
           }
           return userData;
         }
@@ -113,12 +136,23 @@ export class AuthenticationService {
         userData => {
           this.storagemode.clear();
 
-          let tokenStr = 'Bearer ' + userData.additionalInfo;
+          let tokenStr = 'Bearer ' + userData.additionalinfo;
 
           this.storagemode.set('username', username);
           this.storagemode.set('token', tokenStr);
-          this.storagemode.set('userdata', userData.obj);
+          this.storagemode.set('localstoredata', userData.obj);
           this.authState.next(userData.obj);
+
+          this.token = tokenStr;
+          this.username = username;
+
+          this.loggedinuserid = userData.obj.id;
+          if (userData.obj.center !== null) {
+            this.center = userData.obj.center;
+          }
+
+
+          this.corporate = userData.obj.corporate;
 
           return userData;
         }
@@ -148,4 +182,43 @@ export class AuthenticationService {
     return this.userid;
   }
 
+
+  getLocalData() {
+
+
+    this.storagemode.get('localstoredata').then(data => {
+
+      this.usrobj = data;
+
+      if (this.usrobj != null) {
+        if(this.usrobj.center !== null) {
+          this.center = this.usrobj.center;
+        }
+        
+        this.loggedinuserid = this.usrobj.id;
+        this.corporate = this.usrobj.corporate;
+      }
+
+
+      
+
+    });
+
+
+    this.storagemode.get('token').then(data => {
+      this.token = data;
+    });
+
+    this.storagemode.get('username').then(data => {
+      this.username = data;
+    });
+
+
+  }
+
+ 
+
+
+
 }
+

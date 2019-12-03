@@ -1,0 +1,45 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>qr-code</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-input type="text" placeholder="My QR Code Data" [(ngModel)]="qrData"> </ion-input>
+
+	<ion-segment [(ngModel)]="elementType">
+		<ion-segment-button value="canvas">
+			<ion-label>Cavas</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="img">
+			<ion-label>Image</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="url">
+			<ion-label>URL</ion-label>
+		</ion-segment-button>
+	</ion-segment>
+
+	<ion-button expand="full" (click)="scanCode()" color="secondary">
+		<ion-icon name="qr-scanner">
+			Scan Code
+		</ion-icon>
+	</ion-button>
+
+  <ion-card *ngIf="qrData" text-center>
+      <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="qrData" qrc-class="aclass" qrc-errorCorrectionLevel="L">
+        </ngx-qrcode>
+        <ion-card-content>
+          <ion-button expand="full" color="tertiary" (click)="downloadQR()" *ngIf="elementType === 'canvas'">
+            <ion-icon name="download" slot="start"></ion-icon>
+            Download QR Code
+          </ion-button>
+        </ion-card-content>
+  </ion-card>
+	
+
+	<ion-card *ngIf="scannedCode">
+		<ion-card-content>
+			Result from Scan :{{scannedCode}}
+		</ion-card-content>
+	</ion-card>
+</ion-content>

@@ -1,18 +1,33 @@
+import { Details } from '../details';
+
 export interface ICorporates {
     id?: string;
     name: string;
-    line1: string;
-    line2: string;
-    state: string;
-    pincode: string;
-    phone: string;
-    email: string;
+    details: Details;
+    isactive: string;
+    createdby: number;
+    createddatetime: any;
+    updatedby: number
+    updateddatetime: any;
+    
 
 }
 
 export class Corporates implements ICorporates {
-    constructor(public name: string, public line1: string, public line2: string,
-        public state: string, public pincode: string, public phone: string, public email: string) {
+    constructor(public id: string, public name: string, public details: Details,  
+        public isactive: string, public createdby: number, public createddatetime: any, public updatedby: number,
+        public updateddatetime: any) {
 
-        }
-}
+    }
+} 
+
+
+
+
+// export interface User {
+//     name: string; // required with minimum 5 chracters
+//     address?: {
+//         street?: string; // required
+//         postcode?: string;
+//     }
+// }

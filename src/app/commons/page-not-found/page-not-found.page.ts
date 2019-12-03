@@ -13,6 +13,6 @@ export class PageNotFound implements OnInit {
   constructor(public menu: MenuController) { }
 
   ngOnInit(): void {
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
 }

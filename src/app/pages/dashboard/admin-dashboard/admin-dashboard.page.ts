@@ -38,33 +38,7 @@ export class AdminDashboardPage implements OnInit, OnDestroy {
 
     this.unsubscribe$.sink = this._testService.getFakeTest().subscribe(data => {
       this.temp = data;
-    },
-      error => {
-        this.error = error;
-
-      }
-    );
-
-    this.unsubscribe$.sink = this.commonApiService.getActiveMemberServices(this.userid).subscribe(data => {
-      this.temp = data;
-      console.log('...............' + JSON.stringify(this.temp));
-    },
-      error => {
-
-        this.errorObj = new ErrorObject(myGlobals.appid, '', '', `getActiveMemberServices@username=${this.userid}`, error, `browser`);
-
-        this.unsubscribe$.sink = this.commonApiService.captureError(this.errorObj).subscribe(
-          data => {
-            console.log('object' + JSON.stringify(data));
-          }
-        );
-
-
-        this.error = this.authenticationService.errormsg;
-        this.cdr.markForCheck();
-      }
-    );
-
+    });
 
   }
 

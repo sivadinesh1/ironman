@@ -28,7 +28,7 @@ export interface AddressFormValues {
   ]
 })
 export class AddressFormComponent implements ControlValueAccessor, OnDestroy {
-  form: FormGroup;
+  addressForm: FormGroup;
   subscriptions: Subscription[] = [];
 
   validation_messages = {
@@ -54,42 +54,42 @@ export class AddressFormComponent implements ControlValueAccessor, OnDestroy {
   };
 
   get value(): AddressFormValues {
-    return this.form.value;
+    return this.addressForm.value;
   }
 
   set value(value: AddressFormValues) {
-    this.form.setValue(value);
+    this.addressForm.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
 
   get emailControl() {
-    return this.form.controls.email;
+    return this.addressForm.controls.email;
   }
 
   get line1Control() {
-    return this.form.controls.line1;
+    return this.addressForm.controls.line1;
   }
 
   get line2Control() {
-    return this.form.controls.line2;
+    return this.addressForm.controls.line2;
   }
 
   get stateControl() {
-    return this.form.controls.state;
+    return this.addressForm.controls.state;
   }
 
   get pincodeControl() {
-    return this.form.controls.pincode;
+    return this.addressForm.controls.pincode;
   }
 
   constructor(private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
+    this.addressForm = this.formBuilder.group({
       line1: ['', Validators.required],
-      line2: ['', Validators.required],
+      line2: ['', ],
       state: ['', Validators.compose([
         Validators.required,
-        Validators.pattern(SharedService.EMAIL_REGEX)
+
       ])],
       pincode: ['', Validators.compose([
         Validators.required,
@@ -99,7 +99,7 @@ export class AddressFormComponent implements ControlValueAccessor, OnDestroy {
     });
 
     this.subscriptions.push(
-      this.form.valueChanges.subscribe(value => {
+      this.addressForm.valueChanges.subscribe(value => {
         this.onChange(value);
         this.onTouched();
       })
@@ -128,6 +128,6 @@ export class AddressFormComponent implements ControlValueAccessor, OnDestroy {
   }
 
   validate(_: FormControl) {
-    return this.form.valid ? null : { Address: { valid: false, }, };
+    return this.addressForm.valid ? null : { Address: { valid: false, }, };
   }
 }

@@ -21,6 +21,9 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdTab1Page]
+  exports: [
+
+  ],
+  declarations: []
 })
-export class AdTab1PageModule {}
+export class AdTab1PageModule { }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'walkthrough', pathMatch: 'full' },
@@ -20,14 +21,89 @@ const routes: Routes = [
 
   // { path: 'list-corporates', loadChildren: () => import('./pages/setup/list-corporates/list-corporates.module').then(m => m.ListCorporatesPageModule) },
 
+  { path: 'add-enquiry', loadChildren: './pages/leads/enquiry/enquiry.module#EnquiryPageModule' },
 
   { path: 'app', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule) },
+  { path: 'smile-rate', loadChildren: () => import('./pages/try/smile-rate/smile-rate.module').then(m => m.SmileRatePageModule) },
+  { path: 'slider-test', loadChildren: () => import('./pages/try/slider/slider.module').then(m => m.SliderPageModule) },
+  { path: 'scroll-animate', loadChildren: () => import('./pages/try/scroll-animate/scroll-animate.module').then(m => m.ScrollAnimatePageModule) },
+  { path: 'scroll-vanish', loadChildren: () => import('./pages/try/scroll-vanish/scroll-vanish.module').then(m => m.ScrollVanishPageModule) },
+  { path: 'animated-heart-like', loadChildren: () => import('./pages/try/animated-heart-like/animated-heart-like.module').then(m => m.AnimatedHeartLikePageModule) },
+  { path: 'animate-list', loadChildren: () => import('./pages/try/animate-list/animate-list.module').then(m => m.AnimateListPageModule) },
+
+  { path: 'cart-home', loadChildren: () => import('./pages/try/cart/cart-home/cart-home.module').then(m => m.CartHomePageModule) },
+  { path: 'cart', loadChildren: () => import('./pages/try/cart/cart.module').then(m => m.CartPageModule) },
+
+  { path: 'timer', loadChildren: () => import('./pages/timer/timer.module').then(m => m.TimerPageModule) },
+  { path: 'calci', loadChildren: () => import('./pages/try/calci/calci.module').then(m => m.CalciPageModule) },
+  { path: 'meditate', loadChildren: () => import('./pages/meditate/meditate.module').then(m => m.MeditatePageModule) },
+  { path: 'local-notification', loadChildren: () => import('./pages/try/local-notification/local-notification.module').then(m => m.LocalNotificationPageModule) },
+
+
+  { path: 'breather', loadChildren: () => import('./pages/breather/breather.module').then(m => m.BreatherPageModule) },
+  { path: 'animated-div', loadChildren: () => import('./pages/try/animated-div/animated-div.module').then(m => m.AnimatedDivPageModule) },
+  { path: 'drag-drop', loadChildren: () => import('./pages/try/drag-drop/drag-drop.module').then(m => m.DragDropPageModule) },
+
+  { path: 'event-calendar', loadChildren: () => import('./pages/try/event-calendar/event-calendar.module').then(m => m.EventCalendarPageModule) },
+  { path: 'bmi-calc', loadChildren: () => import('./pages/try/bmi-calc/bmi-calc.module').then(m => m.BmiCalcPageModule) },
+
+  { path: 'qr-code', loadChildren: () => import('./pages/try/qr-code/qr-code.module').then(m => m.QrCodePageModule) },
+  { path: 'sms', loadChildren: () => import('./pages/try/sms/sms.module').then(m => m.SmsPageModule) },
+  { path: 'contact-mgmt', loadChildren: () => import('./pages/try/contact-mgmt/contact-mgmt.module').then(m => m.ContactMgmtPageModule) },
+  { path: 'speech-text', loadChildren: () => import('./pages/try/speech-text/speech-text.module').then(m => m.SpeechTextPageModule) },
+
+  { path: 'text-speech', loadChildren: () => import('./pages/try/text-speech/text-speech.module').then(m => m.TextSpeechPageModule) },
+
+  { path: 'instagram', loadChildren: () => import('./pages/try/instagram/instagram.module').then(m => m.InstagramPageModule) },
+  { path: 'pedometer', loadChildren: () => import('./pages/try/pedometer/pedometer.module').then(m => m.PedometerPageModule) },
+  { path: 'social-share', loadChildren: () => import('./pages/try/social-share/social-share.module').then(m => m.SocialSharePageModule) },
+
+  
+  { path: 'media', loadChildren: () => import('./pages/try/media/media.module').then(m => m.MediaPageModule) },
+
+  { path: 'paymentgateway/:inputval', loadChildren: () => import('./pages/try/paymentgateway/paymentgateway.module').then(m => m.PaymentgatewayPageModule) },
+
+  { path: 'image-crop', loadChildren: () => import('./pages/try/image-crop/image-crop.module').then(m => m.ImageCropPageModule) },
+  
+  
+  // { path: 'image-crop', loadChildren: './pages/try/image-crop/image-crop.module#ImageCropPageModule' },
+
+  //  { path: 'paymentgateway/:inputval', loadChildren: './pages/paymentgateway/paymentgateway.module#PaymentgatewayPageModule' },
+
+  // { path: 'media', loadChildren: './pages/try/media/media.module#MediaPageModule' },
+
+  
 
   { path: 'page-not-found', loadChildren: () => import('./commons/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   { path: '**', redirectTo: '/page-not-found' },
+  // { path: 'paymentgateway', loadChildren: './pages/try/paymentgateway/paymentgateway.module#PaymentgatewayPageModule' },
+  
+  // { path: 'push-notifications', loadChildren: './pages/try/push-notifications/push-notifications.module#PushNotificationsPageModule' },
+  
+  
+  
 
 
-  // { path: 'edit-corporates', loadChildren: './pages/setup/edit-corporates/edit-corporates.module#EditCorporatesPageModule' },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37,12 +113,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload', scrollPositionRestoration: 'enabled' })
+
   ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
 
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})] })

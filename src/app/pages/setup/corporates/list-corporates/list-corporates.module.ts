@@ -14,7 +14,8 @@ const routes: Routes = [
   {
     path: '',
     component: ListCorporatesPage,
-    resolve: { corporatelist: CorporateResolverService }
+     resolve: { corporatelist: CorporateResolverService },
+    runGuardsAndResolvers: 'always'
   }
 ];
 
