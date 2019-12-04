@@ -8,7 +8,7 @@
 
 <ion-content class="form-content" padding>
 	<h2 class="auth-title">
-		Edit Service  !
+		Edit Service !
 	</h2>
 	<form focusInvalidInput [formGroup]="submitForm" (ngSubmit)="doSubmit()">
 		<ion-list class="inputs-list" lines="full">
@@ -34,7 +34,12 @@
 
 			<ion-item class="input-item">
 				<ion-label position="floating">Description <ion-text color="danger">*</ion-text></ion-label>
-				<ion-input type="text" placeholder="Enter Description" formControlName="description" clearInput></ion-input>
+				<ion-input
+					type="text"
+					placeholder="Enter Description"
+					formControlName="description"
+					clearInput
+				></ion-input>
 			</ion-item>
 
 			<div class="error-container">
@@ -52,19 +57,95 @@
 				</ng-container>
 			</div>
 
-			<ion-chip
-				*ngFor="let item of listItems; let idx = index"
-				(click)="onItemClick(item)"
-				[ngStyle]="{ background: item.selected ? '#FF5733' : '#33FF93' }"
-			>
+			<ion-item (click)="categoryPicker()" class="input-item">
 				<ion-label>
-					{{ item.name }}
+					Category
 				</ion-label>
-			</ion-chip>
+				<ion-label color="primary">
+					{{ category }}
+				</ion-label>
+				<ion-button slot="end" fill="clear">
+					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+				</ion-button>
+			</ion-item>
+
+			<ion-item class="input-item" (click)="subCategoryPicker()">
+				<ion-label>
+					Sub Category
+				</ion-label>
+				<ion-label color="primary">
+					{{ subcategory }}
+				</ion-label>
+				<ion-button slot="end" fill="clear">
+					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+				</ion-button>
+			</ion-item>
+
+			<ion-item class="input-item" (click)="sessionsPicker()">
+				<ion-label>
+					Sessions
+				</ion-label>
+				<ion-label color="primary">
+					{{ sessionVAL }}
+				</ion-label>
+				<ion-button slot="end" fill="clear">
+					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+				</ion-button>
+			</ion-item>
+
+			<ion-item class="input-item" (click)="validityPicker()">
+				<ion-label>
+					Validity (days):
+				</ion-label>
+				<ion-label color="primary">
+					{{ validityVAL }}
+				</ion-label>
+				<ion-button slot="end" fill="clear">
+					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+				</ion-button>
+			</ion-item>
+
+			<ion-item class="input-item" (click)="openDialog()">
+				<ion-label class="adjust-space">
+					Fees
+				</ion-label>
+				<ion-label color="primary"> &nbsp;</ion-label>
+
+				<ion-input type="text" placeholder="Fees" formControlName="base_grossfee" clearInput></ion-input>
+			</ion-item>
+
+			
+
+			<ion-item class="input-item" (click)="taxPicker()">
+				<ion-label>
+					Tax
+				</ion-label>
+				<ion-label color="primary">
+					{{ taxVAL }}
+				</ion-label>
+				<ion-button slot="end" fill="clear">
+					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+				</ion-button>
+			</ion-item>
+
+			<ion-item class="input-item" (click)="graceperiodPicker()">
+				<ion-label>
+					Grace time(days):
+				</ion-label>
+				<ion-label color="primary">
+					{{ graceperiodVAL }}
+				</ion-label>
+				<ion-button slot="end" fill="clear">
+					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+				</ion-button>
+			</ion-item>
 		</ion-list>
 
 		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid"
-			>Edit Service </ion-button
-		>
+			>Edit Service
+		</ion-button>
+
+		{{ this.submitForm.value | json }}
+		{{ this.submitForm.valid }}
 	</form>
 </ion-content>

@@ -118,7 +118,7 @@ export class SetupApiService {
   // Services by categoryID
   getServices(status: any, center_id: any, category_id: any) {
     return this.httpclient.get(`${this.restApiUrl}/api/getservices/${status}/${center_id}/${category_id}`, { observe: 'response' })
-    .pipe(map((data) => data.body));
+      .pipe(map((data) => data.body));
   }
 
   getServiceSubCategory(category_id: any) {
@@ -151,7 +151,7 @@ export class SetupApiService {
   }
 
   updateService(submitform: any) {
-    return this.httpclient.put<any>(this.restApiUrl + '/api/update-service', submitform, { observe: 'response' });
+    return this.httpclient.post<any>(this.restApiUrl + '/api/update-service', submitform, { observe: 'response' });
   }
 
   addServicecategory(submitform: any) {

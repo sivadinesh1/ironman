@@ -12,7 +12,8 @@ import { SubSink } from 'subsink';
 
 import { ErrorService } from 'src/app/services/error.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { NavController } from '@ionic/angular';
+import { NavController, PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
 
 @Component({
 
@@ -33,6 +34,10 @@ export class AddServiceCategoryPage implements OnInit {
   listItems = [];
   linkedsubcatkeys = [];
 
+  name = ['Membership', 'Group Classes', 'Personal Training'];
+
+  framework: any;
+
   validation_messages = {
 
     'name': [{ type: 'required', message: 'Name is required.' }],
@@ -44,7 +49,7 @@ export class AddServiceCategoryPage implements OnInit {
     private _navController: NavController,
     private _authervice: AuthenticationService, private _errorservice: ErrorService,
     private _route: ActivatedRoute, private _cdr: ChangeDetectorRef, private _loadingservice: LoadingService,
-
+    private _pickerCtrl: PickerController,
     private _authservice: AuthenticationService) {
 
 
@@ -91,6 +96,51 @@ export class AddServiceCategoryPage implements OnInit {
 
   }
 
+
+  async  onClick() {
+
+
+    let opts: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Done'
+        }
+
+      ],
+      columns: [
+        {
+          name: 'Name',
+          options: [
+            { text: 'Membership', value: 'Membership' },
+            { text: 'Personal Training', value: 'Personal Training' },
+            { text: 'Group Classes', value: 'Group Classes' },
+          ]
+        }
+      ],
+      mode: "ios",
+    }
+
+
+
+    const picker = await this._pickerCtrl.create(opts);
+    await picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('Name');
+      console.log('object', col);
+      this.framework = col.options[col.selectedIndex].text;
+      this.submitForm.value.name = col.options[col.selectedIndex].value;
+
+      this.submitForm.patchValue({ 'name': col.options[col.selectedIndex].value });
+
+      this._cdr.markForCheck();
+    });
+  }
+
+
   changeSelected($event, item): void {
     item.selected = $event.selected;
   }
@@ -116,7 +166,6 @@ export class AddServiceCategoryPage implements OnInit {
     //  let formvalue = this.submitForm.value;
     this.submitForm.patchValue({ selectedsubcatids: this.linkedsubcatkeys.toString() });
 
-    
     this.unsubscribe$.sink = this._setupapiservuce.addServicecategory(this.submitForm.value).subscribe(data => {
 
       this.apiresponse = data;

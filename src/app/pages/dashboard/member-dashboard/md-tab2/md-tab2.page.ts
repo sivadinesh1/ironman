@@ -67,9 +67,16 @@ export class MdTab2Page implements OnInit {
       console.log('........packageDataArr.......' + JSON.stringify(this.packageDataArr));
 
       this.silverPackageArr = this.packageDataArr.obj.filter((value, index, array) => {
-        if (value.service_sub_category_id === 1 && value.service_category_id === 1) {
+        // if (value.service_sub_category_id === 1 && value.service_category_id === 1) {
+        //   return true;
+        // }
+
+        if (value.service_category === 'Personal Training' && value.service_sub_category_name === 'Silver') {
           return true;
         }
+
+
+
 
       });
 

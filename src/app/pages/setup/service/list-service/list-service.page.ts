@@ -137,7 +137,7 @@ export class ListServicePage implements OnInit {
     this._setupapiservice.getAllServices(status, this._authservice.center.id).subscribe(ssdata => {
       this.apiresponse = ssdata;
 
-
+debugger
       this.listofservices = this.apiresponse.obj || 0;
       this.rowcount = this.listofservices.length || 0;
       

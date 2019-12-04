@@ -8,9 +8,9 @@ import { SetupApiService } from '../../setup-api.service';
 
 import { SubSink } from 'subsink';
 
-import { NavController } from '@ionic/angular';
+import { NavController, PickerController } from '@ionic/angular';
 import { ServiceCategory } from '../servicecategory';
-
+import { PickerOptions } from '@ionic/core';
 
 
 @Component({
@@ -44,13 +44,13 @@ export class EditServiceCategoryPage implements OnInit {
   listItems = [];
 
   linkedsubcatkeys = [];
-
+  framework: any;
 
   currentsubcatlist: any;
 
   constructor(private _fb: FormBuilder, private _setupapiservuce: SetupApiService,
     private _navController: NavController, private _router: Router,
-    private _authervice: AuthenticationService,
+    private _authervice: AuthenticationService, private _pickerCtrl: PickerController,
     private _route: ActivatedRoute, private _cdr: ChangeDetectorRef, private _loadingservice: LoadingService,
 
     private _authservice: AuthenticationService) {
@@ -72,7 +72,7 @@ export class EditServiceCategoryPage implements OnInit {
 
     });
 
-
+    this.framework = this.xdata.name;
 
     this.unsubscribe$.sink = this._setupapiservuce.getServiceSubCategory(this.xdata.id).subscribe(
       data => {
@@ -130,6 +130,49 @@ export class EditServiceCategoryPage implements OnInit {
 
   }
 
+  async  onClick() {
+
+
+    let opts: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Done'
+        }
+
+      ],
+      columns: [
+        {
+          name: 'Name',
+          options: [
+            { text: 'Membership', value: 'Membership' },
+            { text: 'Personal Training', value: 'Personal Training' },
+            { text: 'Group Classes', value: 'Group Classes' },
+          ]
+        }
+      ],
+      mode: "md",
+    }
+
+
+
+    const picker = await this._pickerCtrl.create(opts);
+    await picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('Name');
+      console.log('object', col);
+      this.framework = col.options[col.selectedIndex].text;
+      this.submitForm.value.name = col.options[col.selectedIndex].value;
+
+      this.submitForm.patchValue({ 'name': col.options[col.selectedIndex].value });
+
+      this._cdr.markForCheck();
+    });
+  }
+
   onItemClick(item) {
 
     if (item.selected) {
@@ -147,7 +190,7 @@ export class EditServiceCategoryPage implements OnInit {
   doSubmit(): void {
 
     this.submitForm.patchValue({ selectedsubcatids: this.linkedsubcatkeys.toString() });
-    
+
     this.unsubscribe$.sink = this._setupapiservuce.updateServiceCategory(this.submitForm.value).subscribe(
       data => {
         this.apiresponse = data;
