@@ -94,7 +94,7 @@ export class AuthenticationService {
 
 
   authenticate(username, password) {
-
+    console.log('object MM ' + restApiUrl);
     return this.httpClient.post<any>(`${restApiUrl}/api/authenticate`, { username, password }).pipe(
       map(
         userData => {
@@ -191,16 +191,16 @@ export class AuthenticationService {
       this.usrobj = data;
 
       if (this.usrobj != null) {
-        if(this.usrobj.center !== null) {
+        if (this.usrobj.center !== null) {
           this.center = this.usrobj.center;
         }
-        
+
         this.loggedinuserid = this.usrobj.id;
         this.corporate = this.usrobj.corporate;
       }
 
 
-      
+
 
     });
 
@@ -216,7 +216,7 @@ export class AuthenticationService {
 
   }
 
- 
+
 
 
 

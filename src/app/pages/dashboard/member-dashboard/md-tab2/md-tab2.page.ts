@@ -64,25 +64,21 @@ export class MdTab2Page implements OnInit {
 
     this.unsubscribe$.sink = this.commonApiService.getpackages(this._authservice.center.id).subscribe(packagedata => {
       this.packageDataArr = packagedata;
-      console.log('........packageDataArr.......' + JSON.stringify(this.packageDataArr));
 
       this.silverPackageArr = this.packageDataArr.obj.filter((value, index, array) => {
-        // if (value.service_sub_category_id === 1 && value.service_category_id === 1) {
-        //   return true;
-        // }
 
         if (value.service_category === 'Personal Training' && value.service_sub_category_name === 'Silver') {
           return true;
         }
 
-
-
-
       });
 
 
       this.goldPackageArr = this.packageDataArr.obj.filter((value, index, array) => {
-        return (value.service_sub_category_id === 2 && value.service_category_id === 1);
+
+        if (value.service_category === 'Personal Training' && value.service_sub_category_name === 'Gold') {
+          return true;
+        }
 
       });
 
@@ -107,8 +103,6 @@ export class MdTab2Page implements OnInit {
 
   async about_trainer(item) {
 
-
-
     const modal = await this._modalcontroller.create({
       component: AboutTrainerComponent,
       cssClass: 'modalCss',
@@ -129,6 +123,8 @@ export class MdTab2Page implements OnInit {
   }
 
   openBottomSheet(item): void {
+
+
     const bottomSheetRef = this._bottomSheet.open(AboutTrainerComponent, {
       data: { item },
     });

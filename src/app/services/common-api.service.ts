@@ -60,6 +60,12 @@ export class CommonApiService {
     return this.httpclient.get(`${this.restApiUrl}/api/gettrainers/${centerid}`);
   }
 
+  getTrainerDetails(userid) {
+    return this.httpclient.get(`${this.restApiUrl}/api/gettrainerdetails/${userid}`);
+  }
+
+  
+
 
   insertUserServicesSelfEnquiry(enquiryObj) {
     return this.httpclient.post<any>(this.restApiUrl + '/api/insert-user-services-self-enquiry/', enquiryObj, { observe: 'response' });

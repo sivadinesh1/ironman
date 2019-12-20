@@ -22,6 +22,12 @@ const routes: Routes = [
   // { path: 'list-corporates', loadChildren: () => import('./pages/setup/list-corporates/list-corporates.module').then(m => m.ListCorporatesPageModule) },
 
   { path: 'add-enquiry', loadChildren: './pages/leads/enquiry/enquiry.module#EnquiryPageModule' },
+  { path: 'view-packages/:id', loadChildren: './pages/leads/enquiry/view-packages/view-packages.module#ViewPackagesPageModule' },
+
+  { path: 'trial-calendar', loadChildren: () => import('./pages/leads/enquiry/trial-calender/trial-calender.module').then(m => m.TrialCalenderPageModule) },
+
+  // { path: 'trial-calender', loadChildren: './pages/leads/enquiry/trial-calender/trial-calender.module#TrialCalenderPageModule' },
+
 
   { path: 'app', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule) },
   { path: 'smile-rate', loadChildren: () => import('./pages/try/smile-rate/smile-rate.module').then(m => m.SmileRatePageModule) },
@@ -58,30 +64,33 @@ const routes: Routes = [
   { path: 'pedometer', loadChildren: () => import('./pages/try/pedometer/pedometer.module').then(m => m.PedometerPageModule) },
   { path: 'social-share', loadChildren: () => import('./pages/try/social-share/social-share.module').then(m => m.SocialSharePageModule) },
 
-  
+
   { path: 'media', loadChildren: () => import('./pages/try/media/media.module').then(m => m.MediaPageModule) },
 
   { path: 'paymentgateway/:inputval', loadChildren: () => import('./pages/try/paymentgateway/paymentgateway.module').then(m => m.PaymentgatewayPageModule) },
 
   { path: 'image-crop', loadChildren: () => import('./pages/try/image-crop/image-crop.module').then(m => m.ImageCropPageModule) },
-  
-  
-  // { path: 'image-crop', loadChildren: './pages/try/image-crop/image-crop.module#ImageCropPageModule' },
 
-  //  { path: 'paymentgateway/:inputval', loadChildren: './pages/paymentgateway/paymentgateway.module#PaymentgatewayPageModule' },
 
-  // { path: 'media', loadChildren: './pages/try/media/media.module#MediaPageModule' },
 
-  
+
+  { path: 'card-animate', loadChildren: './pages/try/card-animate/card-animate.module#CardAnimatePageModule' },
 
   { path: 'page-not-found', loadChildren: () => import('./commons/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   { path: '**', redirectTo: '/page-not-found' },
-  // { path: 'paymentgateway', loadChildren: './pages/try/paymentgateway/paymentgateway.module#PaymentgatewayPageModule' },
-  
-  // { path: 'push-notifications', loadChildren: './pages/try/push-notifications/push-notifications.module#PushNotificationsPageModule' },
-  
-  
-  
+  { path: 'member-profile-view', loadChildren: './pages/setup/profiles/member-profile-view/member-profile-view.module#MemberProfileViewPageModule' },
+  { path: 'trainer-profile-view', loadChildren: './pages/setup/profiles/trainer-profile-view/trainer-profile-view.module#TrainerProfileViewPageModule' },
+  { path: 'trial-calender', loadChildren: './pages/leads/enquiry/trial-calender/trial-calender.module#TrialCalenderPageModule' },
+
+  // { path: 'my-profile', loadChildren: './pages/setup/profiles/my-profile/my-profile.module#MyProfilePageModule' },
+  // { path: 'profile-view', loadChildren: './pages/setup/profiles/profile-view/profile-view.module#ProfileViewPageModule' },
+  // { path: 'profile', loadChildren: './pages/setup/profiles/profile/profile.module#ProfilePageModule' },
+  // { path: 'trainer', loadChildren: './pages/setup/profiles/trainer/trainer.module#TrainerPageModule' },
+
+
+
+
+
 
 
 

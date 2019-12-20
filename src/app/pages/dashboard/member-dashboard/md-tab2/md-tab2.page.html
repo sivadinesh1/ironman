@@ -60,7 +60,19 @@
 		</div>
 	</div>
 
-	
+	<div class="section-4">
+		Gold**
+		<div *ngFor="let item of this.goldTrainers">
+			<div class="trainer-info" (click)="openBottomSheet(item)">
+				<div class="trainer-img">
+					<img class="img" src="/assets/images/manju.jpg" alt="Avatar" />
+				</div>
+				<div class="trainer-name">
+					{{ item?.first_name }}
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="section-8">
 		<h3>KEY FEATURES</h3>

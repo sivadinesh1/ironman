@@ -24,7 +24,6 @@ export class SetupApiService {
   // );
 
   addCorporate(submitform: any) {
-    // return this.httpclient.post<any>(this.restApiUrl + '/api/corporate', submitform, { observe: 'response' });
     return this.httpclient.post<any>(this.restApiUrl + '/api/corporate', submitform, { observe: 'response' })
       .pipe(map((data) => data.body));
   }
@@ -109,6 +108,13 @@ export class SetupApiService {
   getAllServiceCategories(status: any, center_id: any) {
     return this.httpclient.get(`${this.restApiUrl}/api/getallservicecategories/${status}/${center_id}`);
   }
+
+
+  // service category
+  getServicePacksSummary(center_id: any, status: any) {
+    return this.httpclient.get(`${this.restApiUrl}/api/getservicepackssummary/${center_id}/${status}`);
+  }
+
 
   // Services
   getAllServices(status: any, center_id: any) {

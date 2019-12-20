@@ -57,7 +57,7 @@
 					Category
 				</ion-label>
 				<ion-label color="primary">
-					{{ category }}
+					{{ selCategory }}
 				</ion-label>
 				<ion-button slot="end" fill="clear">
 					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
@@ -69,7 +69,7 @@
 					Sub Category
 				</ion-label>
 				<ion-label color="primary">
-					{{ subcategory }}
+					{{ selSubCategory }}
 				</ion-label>
 				<ion-button slot="end" fill="clear">
 					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
@@ -81,7 +81,7 @@
 					Sessions
 				</ion-label>
 				<ion-label color="primary">
-					{{ sessionVAL }}
+					{{ selSession }}
 				</ion-label>
 				<ion-button slot="end" fill="clear">
 					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
@@ -93,14 +93,14 @@
 					Validity (days):
 				</ion-label>
 				<ion-label color="primary">
-					{{ validityVAL }}
+					{{ selValidity }}
 				</ion-label>
 				<ion-button slot="end" fill="clear">
 					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
 				</ion-button>
 			</ion-item>
 
-			<ion-item class="input-item" (click)="openDialog()">
+			<ion-item class="input-item" (click)="openCurrencyPad()">
 				<ion-label>
 					Fees
 				</ion-label>
@@ -114,7 +114,7 @@
 						Tax
 					</ion-label>
 					<ion-label color="primary">
-						{{ taxVAL }}
+						{{ selTax }}
 					</ion-label>
 					<ion-button slot="end" fill="clear">
 						<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
@@ -126,7 +126,7 @@
 					Grace time(days):
 				</ion-label>
 				<ion-label color="primary">
-					{{ graceperiodVAL }}
+					{{ selGracePeriod }}
 				</ion-label>
 				<ion-button slot="end" fill="clear">
 					<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
@@ -135,7 +135,7 @@
 		</ion-list>
 
 		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid">Add Service </ion-button>
-		{{ this.submitForm.value | json }}
-		{{ this.submitForm.valid }}
+		<!-- {{ this.submitForm.value | json }}
+		{{ this.submitForm.valid }} -->
 	</form>
 </ion-content>

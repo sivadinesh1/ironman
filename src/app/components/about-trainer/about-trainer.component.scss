@@ -1,0 +1,16 @@
+.container {
+	animation: mymove 5s ease-in-out;
+}
+
+@keyframes mymove {
+	from {
+		top: 0px;
+	}
+	to {
+		top: 200px;
+	}
+}
+
+.mat-bottom-sheet-container {
+	animation: mymove 5s ease-in-out !important;
+}

@@ -1,154 +1,234 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="/"
-        (click)="showDashboard()"
-      ></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header no-border>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button color="dark" defaultHref="/" (click)="showDashboard()"></ion-back-button>
+		</ion-buttons>
+		<ion-title style="font-weight: 500;">
+			New Enquiry Lead
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content class="form-content" padding>
-  <h2 class="auth-title">
-    Add Enquiry !
-  </h2>
-  <form focusInvalidInput [formGroup]="submitForm" (ngSubmit)="doSubmit()">
-    <ion-list class="inputs-list" lines="full">
-      <ion-item class="input-item">
-        <ion-label position="floating"
-          >First Name <ion-text color="danger">*</ion-text></ion-label
-        >
-        <ion-input
-          required
-          type="text"
-          placeholder="Enter first name"
-          formControlName="firstname"
-          clearInput
-        ></ion-input>
-      </ion-item>
+<!-- <ion-header>
+		<ion-toolbar>
+			<ion-buttons slot="end">
+				<ion-button color="dark" (click)="closeModal()">
+					<ion-icon name="close"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header> -->
 
-      <div class="error-container">
-        <ng-container *ngFor="let validation of validation_messages.firstname">
-          <div
-            class="error-message"
-            *ngIf="
-								submitForm.get('firstname').hasError(validation.type) &&
-								(submitForm.get('firstname').dirty || submitForm.get('firstname').touched)
-							"
-          >
-            <ion-icon name="information-circle-outline"></ion-icon>
-            <span>{{ validation.message }}</span>
-          </div>
-        </ng-container>
-      </div>
+<ion-content class="form-content">
+	<mat-vertical-stepper [linear]="true" #stepper>
+		<!-- change default 'edit' icon -->
+		<!-- <ng-template matStepperIcon="edit">
+			<mat-icon>done</mat-icon>
+		</ng-template> -->
 
-      <ion-item class="input-item">
-        <ion-label position="floating"
-          >Last Name <ion-text color="danger">*</ion-text></ion-label
-        >
-        <ion-input
-          required
-          type="text"
-          placeholder="Enter last name"
-          formControlName="lastname"
-          clearInput
-        ></ion-input>
-      </ion-item>
-      <div class="error-container">
-        <ng-container *ngFor="let validation of validation_messages.lastname">
-          <div
-            class="error-message"
-            *ngIf="
-								submitForm.get('lastname').hasError(validation.type) &&
-								(submitForm.get('lastname').dirty || submitForm.get('lastname').touched)
-							"
-          >
-            <ion-icon name="information-circle-outline"></ion-icon>
-            <span>{{ validation.message }}</span>
-          </div>
-        </ng-container>
-      </div>
+		<!-- changed step icons -->
+		<!-- <ng-template matStepperIcon="home">
+			<mat-icon>home</mat-icon>
+		</ng-template>
+		<ng-template matStepperIcon="form">
+			<mat-icon>format_align_center</mat-icon>
+		</ng-template>
+		<ng-template matStepperIcon="last">
+			<mat-icon>done_all</mat-icon>
+		</ng-template> -->
 
-      <ion-item class="input-item">
-        <ion-label position="floating"
-          >Phone <ion-text color="danger">*</ion-text></ion-label
-        >
-        <ion-input
-          type="text"
-          placeholder="Enter phone number"
-          formControlName="phone"
-          clearInput
-        ></ion-input>
-      </ion-item>
+		// Add basic details
+		<mat-step [stepControl]="firstFormGroup" [completed]="false">
+			<form [formGroup]="firstFormGroup">
+				<ng-template matStepLabel>Personal Info</ng-template>
+				<mat-form-field class="mat-input-wrapper">
+					<input matInput placeholder="Full Name" formControlName="firstname" required />
+				</mat-form-field>
 
-      <div class="error-container">
-        <ng-container *ngFor="let validation of validation_messages.phone">
-          <div
-            class="error-message"
-            *ngIf="
-								submitForm.get('phone').hasError(validation.type) &&
-								(submitForm.get('phone').dirty || submitForm.get('phone').touched)
-							"
-          >
-            <ion-icon name="information-circle-outline"></ion-icon>
-            <span>{{ validation.message }}</span>
-          </div>
-        </ng-container>
-      </div>
+				<mat-form-field class="mat-input-wrapper">
+					<span matPrefix>+91 &nbsp;</span>
+					<input
+						type="tel"
+						ionic
+						matInput
+						placeholder="Telephone"
+						(focus)="openPhonePad()"
+						formControlName="mobilenumber"
+						required
+					/>
+				</mat-form-field>
 
-      <ion-item class="input-item">
-        <ion-label position="floating"
-          >Email <ion-text color="danger">*</ion-text></ion-label
-        >
-        <ion-input
-          type="text"
-          placeholder="Enter email"
-          formControlName="email"
-          clearInput
-        ></ion-input>
-      </ion-item>
-      <div class="error-container">
-        <ng-container *ngFor="let validation of validation_messages.email">
-          <div
-            class="error-message"
-            *ngIf="
-								submitForm?.get('email').hasError(validation.type) &&
-								(submitForm?.get('email').dirty || submitForm?.get('email').touched)
-							"
-          >
-            <ion-icon name="information-circle-outline"></ion-icon>
-            <span>{{ validation.message }}</span>
-          </div>
-        </ng-container>
-      </div>
-    </ion-list>
+				<mat-form-field class="mat-input-wrapper">
+					<input matInput placeholder="Email" formControlName="email" required />
+				</mat-form-field>
 
-    <div>
-      <label class="switch">
-        <input type="checkbox" formControlName="istrial" />
-        <span class="slider round"></span>
-      </label>
-    </div>
+				<div class="selection-group">
+					<input id="a" type="radio" formControlName="gender" value="male" />
 
-    <ion-chip
-      *ngFor="let item of listItems; let idx = index"
-      (click)="showServicesCard(item)"
-      [ngStyle]="{ background: item.selected ? '#FF5733' : '#33FF93' }"
-    >
-      <ion-label>
-        {{ item.name }}
-      </ion-label>
-    </ion-chip>
+					<label for="a">
+						<div class="gender-style">
+							<ion-icon class="iconfemalecolor" ios="ios-female" md="md-male"></ion-icon>
+							<ion-label class="txt-pad">Male</ion-label>
+						</div>
+					</label>
 
-    <ion-button
-      class="sub-btn"
-      type="submit"
-      expand="block"
-      [disabled]="!submitForm.valid"
-      >Add Enquiry</ion-button
-    >
-  </form>
+					<input id="b" type="radio" formControlName="gender" value="female" />
+					<label for="b">
+						<div class="gender-style">
+							<ion-icon class="iconmalecolor" md="md-female"></ion-icon>
+							<ion-label class="txt-pad">Female</ion-label>
+						</div>
+					</label>
+				</div>
 
-  {{submitForm.value | json}} {{submitForm.valid}}
+				<div class="step-next">
+					<button color="primary" mat-button [disabled]="!firstFormGroup.valid" matStepperNext class="next">
+						Next <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+					</button>
+				</div>
+			</form>
+		</mat-step>
+
+		// Select a Service Pack of interest
+		<mat-step [stepControl]="secondFormGroup">
+			<form [formGroup]="secondFormGroup">
+				<ng-template matStepLabel>Choose Service Packs</ng-template>
+
+				<div class="scrolling-wrapper-flexbox ">
+					<div class="card" *ngFor="let item of this.listItems" (click)="showServicesCard(item)">
+						<div class="name">{{ item?.name }}</div>
+						<div class="count">{{ item.count }} <span class="options">Options</span></div>
+					</div>
+				</div>
+
+				<div class="chosed-pack" *ngIf="chosenpack">
+					<div class="chosen">
+						SELECTED PACK:
+					</div>
+					<div class="list">
+						<div class="pack_info">
+							<div class="pack_name">
+								{{ chosenpack.name }}
+							</div>
+							<div class="pack_validity">
+								{{ chosenpack.validity }}
+							</div>
+						</div>
+						<div class="pack_cost">
+							<div class="fee"><span>&#8377;</span> {{ chosenpack.base_grossfee }}</div>
+							<div class="sessions">
+								<span class="mid_num">{{ chosenpack.sessions }} </span>
+								<span class="small_txt">Sessions</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="step-next">
+					<button color="primary" mat-button matStepperPrevious class="back">
+						<ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+						BACK
+					</button>
+
+					<button color="primary" mat-button [disabled]="!secondFormGroup.valid" matStepperNext class="next">
+						Next <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+					</button>
+				</div>
+			</form>
+		</mat-step>
+
+		// schedule Trial (optional)
+		<mat-step [stepControl]="trialFormGroup" label="Schedul Trial" optional>
+			<form [formGroup]="trialFormGroup">
+				<div class="free-trial">
+					<div class="trial-txt">Do you want to offer free trial?</div>
+					<div class="schedule" (click)="showtrialCalendar()">Yes Schedule</div>
+				</div>
+			</form>
+
+			<div class="chosed-trial" *ngIf="chosentrial">
+				<div class="chosen">
+					Trial Scheduled
+				</div>
+				<div class="list">
+					<div class="pack_info">
+						<div class="pack_name">
+							{{ chosentrial.title }}
+						</div>
+						<div class="pack_validity">
+							{{ chosentrial.desc }}
+						</div>
+					</div>
+					<div class="pack_cost">
+						<div class="fee">{{ chosentrial.starttime | date: 'dd/MMM/yyyy'}}</div>
+						<div class="sessions">
+							<span class="mid_num"> TIME: </span>
+							<span class="small_txt">{{ chosentrial.starttime | date: 'h:mm'}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</mat-step>
+		<div class="step-next">
+			<button mat-button matStepperPrevious><span class="step-txt">BACK</span></button>
+			<button mat-button matStepperNext [disabled]="!trialFormGroup.valid" class="next">
+				<span class="step-txt">Next</span>
+			</button>
+		</div>
+
+		//final step submit
+
+		<mat-step [stepControl]="fourthFormGroup" label="Done" state="last">
+			<form [formGroup]="fourthFormGroup">
+				<!-- <mat-step label="Done" state="last">
+              <form [formGroup]="secondFormGroup"> -->
+				<ng-template matStepLabel>Final Step</ng-template>
+
+				<ion-item (click)="leadSourcePicker()" class="input-item">
+					<ion-label>
+						Lead Source
+					</ion-label>
+					<ion-label color="primary">
+						{{ selLeadSource }}
+					</ion-label>
+					<ion-button slot="end" fill="clear">
+						<img src="/assets/images/arrow-down.svg" width="18px" height="18px" />
+					</ion-button>
+				</ion-item>
+
+				<ion-item>
+					<ion-label position="floating">Notes (Optional)</ion-label>
+					<ion-textarea
+						rows="2"
+						cols="80"
+						placeholder="Enter any notes here..."
+						formControlName="notes"
+					></ion-textarea>
+				</ion-item>
+				<!-- {{this.fourthFormGroup.valid}} {{this.fourthFormGroup.value | json}} -->
+
+				<div class="last-step">
+					<button mat-button matStepperPrevious>
+						<span class="step-txt"> <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>BACK</span>
+					</button>
+					<!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+					<ion-button shape="round" [disabled]="!fourthFormGroup.valid" mat-button (click)="doSubmit()"
+						>Add Enquiry</ion-button
+					>
+				</div>
+			</form>
+		</mat-step>
+	</mat-vertical-stepper>
 </ion-content>
+
+<!-- 
+<mat-step *ngFor="let step of steps; let index = index; let last = last;"
+[stepControl]="form.at(index)"> -->
+
+<!-- <mat-form-field [style.fontSize.px]=17>
+    <input matInput placeholder="Template Name" value="{{templateName}}">
+  </mat-form-field> -->
+
+<!-- .mat-input-wrapper{
+    width:400px !important;
+  } -->

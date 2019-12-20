@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="start">
-			<ion-menu-button autoHide="false"></ion-menu-button>
+			<ion-menu-button autoHide="true"></ion-menu-button>
 		</ion-buttons>
 		<ion-title>
 			Member Co-ordinator
@@ -15,10 +15,10 @@
 			<ion-label>At Center</ion-label>
 		</ion-segment-button>
 		<ion-segment-button checked (click)="show('tab2')">
-			<ion-label>1 on 1</ion-label>
+			<ion-label>My Day</ion-label>
 		</ion-segment-button>
 		<ion-segment-button (click)="show('tab3')">
-			<ion-label>At Home</ion-label>
+			<ion-label>Enquiry</ion-label>
 		</ion-segment-button>
 		<ion-segment-button (click)="show('tab4')">
 			<ion-label>Gear</ion-label>
@@ -38,11 +38,21 @@
 	<div *ngIf="tab4">
 		<app-mc-tab4></app-mc-tab4>
 	</div>
+
 	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 		<ion-fab-button (click)="addEnquiry()">
 			<ion-icon name="add"></ion-icon>
 		</ion-fab-button>
 	</ion-fab> -->
+
+	<!-- <ion-button #btn class="floatingbtn" (click)="addEnquiry()"> <span #txt>+ Enquiry </span></ion-button> -->
+
+	<div class="floatingbtn" (click)="addEnquiry()">
+		<div class="circ">+</div>
+
+		<div class="enq">Enquiry</div>
+	</div>
+	<!-- </div> -->
 
 	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 		<ion-fab-button (click)="addRating()">
@@ -195,16 +205,11 @@
 			</ion-fab-button>
 		</ion-fab> -->
 
-
-	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-			<ion-fab-button (click)="imageCrop()">
-				<ion-icon name="add"></ion-icon>
-			</ion-fab-button>
-		</ion-fab>
-
-
-		
-
+	<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="imageCrop()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button> 
+	</ion-fab> -->
 </ion-content>
 
 <!-- to exclude spec.ts files in vscode 

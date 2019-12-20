@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TestService } from 'src/app/service/test.service';
+
 import { SubSink } from 'subsink';
 
 import { CommonApiService } from 'src/app/services/common-api.service';
@@ -22,24 +22,12 @@ export class TrainerDashboardPage implements OnInit, OnDestroy {
 
   private unsubscribe$ = new SubSink();
 
-  constructor(private _testService: TestService, private route: ActivatedRoute,
+  constructor( private route: ActivatedRoute,
     private commonApiService: CommonApiService) {
     this.userid = this.route.snapshot.paramMap.get('userid');
   }
 
   ngOnInit() {
-
-    this.unsubscribe$.sink = this._testService.getFakeTest().subscribe(data => {
-      this.temp = data;
-    },
-      error => {
-        this.error = error;
-
-      }
-    );
-
-  
-
 
   }
 

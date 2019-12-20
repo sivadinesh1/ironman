@@ -60,7 +60,7 @@ export class PacksServicePage implements OnInit {
 
   register() {
 
-    debugger;
+    // debugger;
     //   this._renderer.setStyle(this.btn., 'transform', `scale3d(40, 40, 1)`);
 
     //   this._renderer.addClass(this.btn.IonButton, "transform-floatingbtn");

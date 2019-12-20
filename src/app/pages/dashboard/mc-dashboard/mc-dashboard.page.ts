@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { TestService } from 'src/app/service/test.service';
+
 import { SubSink } from 'subsink';
 
 import { CommonApiService } from 'src/app/services/common-api.service';
@@ -29,7 +29,7 @@ export class McDashboardPage implements OnInit, OnDestroy {
 
   private unsubscribe$ = new SubSink();
 
-  constructor(private _testService: TestService, private route: ActivatedRoute,
+  constructor( private route: ActivatedRoute,
     private _navController: NavController,
     private cdr: ChangeDetectorRef, private authenticationService: AuthenticationService,
     private commonApiService: CommonApiService) {
@@ -39,9 +39,6 @@ export class McDashboardPage implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.unsubscribe$.sink = this._testService.getFakeTest().subscribe(data => {
-      this.temp = data;
-    });
 
   }
 

@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [{
       path: 'dashboard',
       children: [
-        
+
         {
           path: 'super-admin-dashboard/:userid', loadChildren: () => import('../pages/dashboard/super-admin-dashboard/super-admin-dashboard.module').then(m => m.SuperAdminDashboardPageModule),
           canActivate: [AuthGuardService], data: { role: 'superadmin' }
@@ -41,18 +41,31 @@ const routes: Routes = [
       ]
     },
 
+    // {
+    //   path: 'user',
+    //   children: [
+    //     { path: '', loadChildren: () => import('../pages/user/profile/user-profile.module').then(m => m.UserProfilePageModule) },
+    //     { path: 'friends', loadChildren: () => import('../pages/user/friends/user-friends.module').then(m => m.UserFriendsPageModule) },
+    //   ]
+    // },
+
     {
-      path: 'user',
+      path: 'profile',
       children: [
-        { path: '', loadChildren: () => import('../pages/user/profile/user-profile.module').then(m => m.UserProfilePageModule) },
-        { path: 'friends', loadChildren: () => import('../pages/user/friends/user-friends.module').then(m => m.UserFriendsPageModule) },
+        { path: '', loadChildren: () => import('../pages/setup/profiles/my-profile/my-profile.module').then(m => m.MyProfilePageModule) },
+        { path: 'trainer-profile-view/:id', loadChildren: () => import('../pages/setup/profiles/trainer-profile-view/trainer-profile-view.module').then(m => m.TrainerProfileViewPageModule) },
+        { path: 'member-profile-view/:id', loadChildren: () => import('../pages/setup/profiles/member-profile-view/member-profile-view.module').then(m => m.MemberProfileViewPageModule) },
+
       ]
     },
+
+    { path: 'profile', loadChildren: './pages/setup/profiles/profile/profile.module#ProfilePageModule' },
+
     {
       path: 'notifications',
       children: [
         { path: '', loadChildren: () => import('../pages/notifications/notifications.module').then(m => m.NotificationsPageModule) },
-        
+
       ]
     },
     {

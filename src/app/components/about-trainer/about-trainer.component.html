@@ -1,1 +1,23 @@
 <p>about-trainer works! {{ this.trainerInfo.item?.first_name }}</p>
+<p>{{ this.trainerInfo | json }}</p>
+
+
+<div class="container">
+    <ion-list-header>Default</ion-list-header>
+
+	<ion-avatar>
+		<img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+    </ion-avatar>
+    
+    <div class="name">
+        {{this.trainerInfo.firstname}}
+    </div>
+    <div class="phone">
+        {{this.trainerInfo.mobile_number}}
+    </div>
+    <div class="about-me">
+        {{this.trainerInfo.about_me}}
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci ex illo minus assumenda odit natus commodi voluptatum eos animi iste incidunt quos soluta doloremque cupiditate aperiam accusantium consequatur qui, explicabo temporibus dicta vero provident quam? Exercitationem, labore hic natus facere velit asperiores eius doloribus sequi error aliquam iure. Tempora asperiores voluptates dolorum aspernatur iure cumque quae voluptate numquam autem minima natus harum ea, placeat illum laudantium recusandae voluptatibus, sunt nihil, enim magni! Magni omnis earum quod reprehenderit, temporibus fugit dignissimos velit at, voluptatem officia harum! Nisi vel est ad voluptatibus eaque labore odit quaerat non, beatae, ipsa dolorum tempora expedita!
+    </div>
+
+</div>

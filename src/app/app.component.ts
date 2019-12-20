@@ -191,9 +191,9 @@ export class AppComponent implements OnInit {
   setupPush() {
     // I recommend to put these into your environment.ts
     this.oneSignal.startInit('a45150a4-d59b-4291-b412-ac7215e63104', '215893913121');
- 
+
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
- 
+
     // Notifcation was received in general
     this.oneSignal.handleNotificationReceived().subscribe(data => {
       let msg = data.payload.body;
@@ -201,15 +201,15 @@ export class AppComponent implements OnInit {
       let additionalData = data.payload.additionalData;
       this.showAlert(title, msg, additionalData.task);
     });
- 
+
     // Notification was really clicked/opened
     this.oneSignal.handleNotificationOpened().subscribe(data => {
       // Just a note that the data is a different place here!
       let additionalData = data.notification.payload.additionalData;
- 
+
       this.showAlert('Notification opened', 'You already read this before', additionalData.task);
     });
- 
+
     this.oneSignal.endInit();
   }
 

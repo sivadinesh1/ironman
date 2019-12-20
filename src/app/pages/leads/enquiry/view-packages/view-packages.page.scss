@@ -1,0 +1,26 @@
+.list {
+	display: grid;
+	grid-template-columns: 1fr;
+	padding: 1rem;
+	margin: 1rem;
+	border: 1px solid grey;
+	border-radius: 12px;
+}
+
+.floatingbtn {
+	z-index: 999;
+	display: grid;
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.transform-floatingbtn {
+	transform: scale3d(41, 41, 1);
+	transition: 0.3s ease-in-out;
+}
+
+.txt {
+	
+}

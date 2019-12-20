@@ -91,7 +91,7 @@ export class AddTrainersPage implements OnInit {
 
       trainuser: this._fb.group({
         username: [],
-        profileimgurl: [],
+        profileimgurl: ['/assets/images/dummy-profile.png'],
         socialid: [],
         status: ['Y'],
         verified: ['Y'],
@@ -108,10 +108,10 @@ export class AddTrainersPage implements OnInit {
           Validators.pattern(SharedService.EMAIL_REGEX)
         ])],
         center: [this._authervice.center],
-        createdby: [this._authservice.loggedinuserid],
-        createddatetime: [new Date()],
-        updatedby: [null],
-        updateddatetime: [null],
+        // createdby: [this._authservice.loggedinuserid],
+        // createddatetime: [new Date()],
+        // updatedby: [null],
+        // updateddatetime: [null],
 
       }),
 

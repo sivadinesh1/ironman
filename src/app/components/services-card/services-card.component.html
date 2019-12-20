@@ -1,11 +1,87 @@
-<div class="modal-wrapper">
-	<!-- <p>services-card works! {{ data }}</p> -->
-
-	<ion-list lines="none" appAnimateItems>
-		<ion-item *ngFor="let item of listservices">
-			<p>{{ item.name }}</p>
-		</ion-item>
-	</ion-list>
-
+<!-- <div class="modal-wrapper">
+	
+		<ion-list lines="none" appAnimateItems>
+			<ion-item *ngFor="let item of listservices">
+				<p>{{ item.name }}</p>
+			</ion-item>
+		</ion-list>
+	
 	<div (click)="dismiss('test')">TEST</div>
+</div> -->
+
+<div class="modal-wrapper">
+	<ion-header>
+		<ion-toolbar>
+			<ion-buttons slot="end">
+				<ion-button color="dark" (click)="closeModal()">
+					<ion-icon name="close"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+	<div class="select-pack">Select a Pack</div>
+	<div class="info">Options can be changed when closing the deal.</div>
+
+	<div class="list-wrap">
+		<div *ngFor="let item of listservices" class="list" [ngStyle]="styleObject(item)" (click)="choosePack(item)">
+			<div class="pack_info">
+				<div class="pack_name">
+					{{ item.name }}
+				</div>
+				<div class="pack_validity" [ngStyle]="{ color: colorToggle(item) }">
+					{{ item.validity }}
+				</div>
+			</div>
+			<div class="pack_cost">
+				<div class="fee"><span>&#8377;</span> {{ item.base_grossfee }}</div>
+				<div class="sessions">
+					<span class="mid_num" [ngStyle]="{ color: colorToggle(item) }">{{ item.sessions }} </span>
+					<span class="small_txt" [ngStyle]="{ color: colorToggle(item) }">Sessions</span>
+				</div>
+			</div>
+		</div>
+
+		<ng-container *ngIf="!listservices">
+			<div
+				*ngFor="
+					let fake of [
+						{ i: 250, j: 85, k: 40, l: 60 },
+						{ i: 220, j: 85, k: 40, l: 60 },
+						{ i: 240, j: 85, k: 40, l: 60 }
+					]
+				"
+				class="list"
+			>
+				<div class="pack_info">
+					<div class="pack_name">
+						<ion-skeleton-text animated [width]="fake.i + 'px'"></ion-skeleton-text>
+					</div>
+					<div class="pack_validity">
+						<ion-skeleton-text animated [width]="fake.j + 'px'"></ion-skeleton-text>
+					</div>
+				</div>
+				<div class="pack_cost">
+					<div class="fee"><ion-skeleton-text animated [width]="fake.k + 'px'"></ion-skeleton-text></div>
+					<div class="sessions">
+						<span class="mid_num">
+							<ion-skeleton-text animated [width]="fake.l + 'px'"></ion-skeleton-text>
+						</span>
+						<span class="small_txt">
+							<ion-skeleton-text animated [width]="fake.k + 'px'"></ion-skeleton-text
+						></span>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+
+	<ion-button
+		expand="block"
+		class="floatingbtn btn-style"
+		[ngStyle]="{ 'background-color': 'pink' }"
+		[disabled]="disabled"
+		(click)="confirm()"
+	>
+		<span>Confirm</span></ion-button
+	>
 </div>

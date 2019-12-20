@@ -33,12 +33,7 @@ export class EnquiryResolverService implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-
-
-
-
-
-        let servicecategory = this.setupapiservice.getAllServiceCategories('Y', this._authservice.center.id)
+        let servicecategory = this.setupapiservice.getServicePacksSummary(this._authservice.center.id, 'Y')
             .pipe(
                 map((data) => new ResolvedEntity(data)),
                 catchError((err: any) => of(new ResolvedEntity(null, err)))

@@ -38,7 +38,7 @@ export class BmiCalcPage implements OnInit {
   doSubmit() {
     let weightInKilos = this.submitForm.value.weight;
     let heightInCms = this.submitForm.value.height;
-    debugger;
+    // debugger;
 
     let heightInMeters = (heightInCms / 100);
     this.bmi = Math.round((weightInKilos / Math.pow(heightInMeters, 2.0)) * 100) / 100.0;

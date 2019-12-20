@@ -10,7 +10,7 @@ export class CurrencyPadComponent implements OnInit {
 
   @ViewChild('p1', { static: true }) p1;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
+  constructor(
     private dialogRef: MatDialogRef<CurrencyPadComponent>,
   ) { }
 
@@ -38,6 +38,3 @@ export class CurrencyPadComponent implements OnInit {
 
 }
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}

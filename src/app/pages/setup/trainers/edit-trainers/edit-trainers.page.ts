@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SetupApiService } from '../../setup-api.service';
 import { NavController } from '@ionic/angular';
@@ -11,6 +11,8 @@ import { SubSink } from 'subsink';
 import { SharedService } from 'src/app/services/shared.service';
 import { PhoneValidator } from 'src/app/util/validators/phone.validator';
 import { IUser } from '../../user';
+
+import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-edit-trainers',
@@ -48,6 +50,8 @@ export class EditTrainersPage implements OnInit {
   listGenderItems = [];
   chosenGender: any;
 
+  imgurl: any;
+
   validation_messages = {
     'firstname': [{ type: 'required', message: 'First Name is required.' }],
     'mobilenumber': [
@@ -69,6 +73,11 @@ export class EditTrainersPage implements OnInit {
 
   };
 
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  showCropper = false;
+
+  @ViewChild(ImageCropperComponent, { static: false }) imageCropper: ImageCropperComponent;
 
   constructor(private _fb: FormBuilder, private _setupapiservuce: SetupApiService,
     private _navController: NavController, private _router: Router,
@@ -102,7 +111,8 @@ export class EditTrainersPage implements OnInit {
         verified: ['Y'],
         gender: [null, Validators.required],
         dob: [],
-
+        file: [null],
+        filename: [null],
         firstname: [null, Validators.required],
         mobilenumber: [null, Validators.compose([
           Validators.required, PhoneValidator.invalidCountryPhone(country)
@@ -181,7 +191,8 @@ export class EditTrainersPage implements OnInit {
       }
     });
 
-
+    this.imgurl = this.xdata.profileimgurl;
+    
     this._cdr.markForCheck();
   }
 
@@ -222,7 +233,7 @@ export class EditTrainersPage implements OnInit {
 
     this.submitForm.patchValue({ 'trainuser': { 'username': this.submitForm.value.trainuser.mobilenumber } });
 
-
+    // debugger;
 
     this.unsubscribe$.sink = this._setupapiservuce.editTrainer(this.submitForm.value).subscribe(data => {
 
@@ -242,5 +253,109 @@ export class EditTrainersPage implements OnInit {
     );
 
   }
+
+
+
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+
+
+    //   this.filesizeAlert = '';
+    const reader = new FileReader();
+    //   this.selectedFile = 'Choose a File...';
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+
+      // console.log('file size ' + file.size);
+
+      const FileSize = file.size / 1024 / 1024; // in MB
+
+      // if (FileSize > 2) {
+      //   this.filesizeAlert = 'Image size exceeds 2MB, consider lesser file size';
+      //   return false;
+      // }
+      this.submitForm.patchValue({ 'trainuser': { 'filename': file.name } });
+
+
+      this._cdr.markForCheck();
+    }
+
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    console.log('object crop image' + this.croppedImage);
+
+    this.submitForm.patchValue({ 'trainuser': { 'file': this.croppedImage } });
+    console.log(event);
+    this._cdr.markForCheck();
+  }
+  imageLoaded() {
+    this.showCropper = true;
+    this.submitForm.patchValue({ 'trainuser': { 'file': this.croppedImage } });
+    this._cdr.markForCheck();
+    console.log('Image loaded')
+  }
+  cropperReady() {
+    console.log('Cropper ready')
+  }
+  loadImageFailed() {
+    console.log('Load failed');
+  }
+  rotateLeft() {
+    this.imageCropper.rotateLeft();
+  }
+  rotateRight() {
+    this.imageCropper.rotateRight();
+  }
+  flipHorizontal() {
+    this.imageCropper.flipHorizontal();
+  }
+  flipVertical() {
+    this.imageCropper.flipVertical();
+  }
+
+
+
+
+  onFileChange(event) {
+    //   this.filesizeAlert = '';
+    const reader = new FileReader();
+    //   this.selectedFile = 'Choose a File...';
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+
+      // console.log('file size ' + file.size);
+
+      const FileSize = file.size / 1024 / 1024; // in MB
+
+      // if (FileSize > 2) {
+      //   this.filesizeAlert = 'Image size exceeds 2MB, consider lesser file size';
+      //   return false;
+      // }
+
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+
+        console.log('object.......' + reader.result);
+
+        // this.ptenroleForm.patchValue({
+        //   file: reader.result,
+        //   filename: file.name
+        // });
+
+        //   this.selectedFile = file.name;
+        // need to run CD since file load runs outside of zone
+        this._cdr.markForCheck();
+      };
+    }
+
+  }
+
+
 
 }

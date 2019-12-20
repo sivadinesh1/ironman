@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { PhoneValidator } from '../../../../util/validators/phone.validator';
 
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from '../../../../services/loading.service';
@@ -11,7 +10,6 @@ import { SubSink } from 'subsink';
 
 
 import { ErrorService } from 'src/app/services/error.service';
-import { SharedService } from 'src/app/services/shared.service';
 import { NavController, PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { CurrencyPadComponent } from 'src/app/components/currency-pad/currency-pad.component';
@@ -27,10 +25,9 @@ import { MatDialog } from '@angular/material';
 })
 export class AddServicePage implements OnInit {
 
+  private unsubscribe$ = new SubSink();
   submitForm: FormGroup;
   apiresponse: any;
-
-  private unsubscribe$ = new SubSink();
 
   servicecategoryList;
 
@@ -40,27 +37,16 @@ export class AddServicePage implements OnInit {
   sessions = [];
   validity = [];
 
-
-
-
   subcatlist: any;
   listItems = [];
   linkedsubcatkeys = [];
 
-  category = '';
-  subcategory = '';
-
-  catvalue: any;
-
-  subcatval: any;
-
-
-  sessionVAL: any;
-  validityVAL: any;
-  graceperiodVAL: any;
-  taxVAL: any;
-
-  action: any;
+  selSession: any;
+  selValidity: any;
+  selGracePeriod: any;
+  selTax: any;
+  selCategory: any;
+  selSubCategory: any;
 
   validation_messages = {
 
@@ -77,17 +63,9 @@ export class AddServicePage implements OnInit {
 
     private _authservice: AuthenticationService) {
 
-
   }
 
-
-
-  // { text: 'Angular', value: 'A' },
-
   ionViewWillEnter() {
-
-
-
     this.unsubscribe$.sink = this._setupapiservuce.getAllServiceCategories('Y', this._authervice.center.id).subscribe(
       data => {
         this.apiresponse = data;
@@ -137,18 +115,11 @@ export class AddServicePage implements OnInit {
 
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(CurrencyPadComponent, {
-      width: '90%',
-      data: {
-        animal: 'panda'
-      }
-    });
+  openCurrencyPad() {
+    const dialogRef = this.dialog.open(CurrencyPadComponent, { width: '90%' });
 
     dialogRef.afterClosed().subscribe(
       data => {
-        console.log("Dialog output:", data);
-
         if (data.length > 0) {
           this.submitForm.patchValue({ base_grossfee: data });
         }
@@ -159,30 +130,14 @@ export class AddServicePage implements OnInit {
   }
 
 
-
-  changeSelected($event, item): void {
-    item.selected = $event.selected;
-  }
-
-
   async categoryPicker() {
     let opts: PickerOptions = {
       buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Set'
-        }
+        { text: 'Cancel', role: 'cancel' },
+        { text: 'Set' }
       ],
       columns: [
-        {
-          name: 'category',
-          options: this.optionsServiceCategoryList
-
-
-        }
+        { name: 'category', options: this.optionsServiceCategoryList }
       ]
     };
     let picker = await this._pickerctrl.create(opts);
@@ -196,15 +151,12 @@ export class AddServicePage implements OnInit {
     picker.present();
     picker.onDidDismiss().then(async data => {
       let col = await picker.getColumn('category');
-      console.log('col:' + col);
 
-      this.category = col.options[col.selectedIndex].text;
-      this.catvalue = col.options[col.selectedIndex].value;
+      this.selCategory = col.options[col.selectedIndex].text;
+      const selCategoryId = col.options[col.selectedIndex].value;
+      this.submitForm.patchValue({ selectedcatid: selCategoryId });
 
-      console.log('object.....' + this.category)
-
-
-      this.unsubscribe$.sink = this._setupapiservuce.getServiceSubCatByCat(this._authervice.center.id, this.catvalue).subscribe(
+      this.unsubscribe$.sink = this._setupapiservuce.getServiceSubCatByCat(this._authervice.center.id, selCategoryId).subscribe(
         data => {
 
           this.apiresponse = data;
@@ -228,21 +180,12 @@ export class AddServicePage implements OnInit {
   async subCategoryPicker() {
     let opts: PickerOptions = {
       buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Set'
-        }
-      ],
-      columns: [
-        {
-          name: 'subcategory',
-          options: this.optionsServiceSubCategoryList
-
-
-        }
+        { text: 'Cancel', role: 'cancel' },
+        { text: 'Set' }],
+      columns: [{
+        name: 'subcategory',
+        options: this.optionsServiceSubCategoryList
+      }
       ]
     };
     let picker = await this._pickerctrl.create(opts);
@@ -256,34 +199,21 @@ export class AddServicePage implements OnInit {
       let col = await picker.getColumn('subcategory');
       console.log('col:' + col);
 
-      this.subcategory = col.options[col.selectedIndex].text;
-      this.subcatval = col.options[col.selectedIndex].value;
+      this.selSubCategory = col.options[col.selectedIndex].text;
+      const selSubCategoryId = col.options[col.selectedIndex].value;
+      this.submitForm.patchValue({ selectedsubcatid: selSubCategoryId });
 
-      console.log('object.....' + this.subcategory)
       this._cdr.markForCheck();
 
 
     })
   }
 
-
-
-
   async sessionsPicker() {
     let opts: PickerOptions = {
       buttons: [
-        {
-          text: 'Cancel', role: 'cancel', handler: (value: any): void => {
-            console.log(value, 'cancel');
-            this.action = 'cancel';
-          },
-        },
-        {
-          text: 'Set', handler: (value: any): void => {
-            console.log(value, 'set');
-            this.action = 'set';
-          }
-        }
+        { text: 'Cancel', role: 'cancel' },
+        { text: 'Set' }
       ],
       columns: [{ name: 'sessions', options: this.sessions }]
     };
@@ -303,16 +233,13 @@ export class AddServicePage implements OnInit {
 
       console.log('object' + data.role);
 
-      this.sessionVAL = col.options[col.selectedIndex].value;
-      this.submitForm.patchValue({ sessions: this.sessionVAL });
+      this.selSession = col.options[col.selectedIndex].value;
+      this.submitForm.patchValue({ sessions: this.selSession });
 
       this._cdr.markForCheck();
 
 
     })
-
-    console.log('object..' + t);
-
 
   }
 
@@ -335,11 +262,10 @@ export class AddServicePage implements OnInit {
       let col = await picker.getColumn('validity');
       console.log('col:' + col);
 
-      this.validityVAL = col.options[col.selectedIndex].value;
-      this.submitForm.patchValue({ validity: this.validityVAL });
+      this.selValidity = col.options[col.selectedIndex].value;
+      this.submitForm.patchValue({ validity: this.selValidity });
 
       this._cdr.markForCheck();
-
 
     })
   }
@@ -362,11 +288,10 @@ export class AddServicePage implements OnInit {
       let col = await picker.getColumn('graceperiod');
       console.log('col:' + col);
 
-      this.graceperiodVAL = col.options[col.selectedIndex].value;
-      this.submitForm.patchValue({ grace_period: this.graceperiodVAL });
+      this.selGracePeriod = col.options[col.selectedIndex].value;
+      this.submitForm.patchValue({ grace_period: this.selGracePeriod });
 
       this._cdr.markForCheck();
-
 
     })
   }
@@ -389,11 +314,10 @@ export class AddServicePage implements OnInit {
       let col = await picker.getColumn('tax');
       console.log('col:' + col);
 
-      this.taxVAL = col.options[col.selectedIndex].value;
+      this.selTax = col.options[col.selectedIndex].value;
 
-      this.submitForm.patchValue({ base_tax: this.taxVAL });
+      this.submitForm.patchValue({ base_tax: this.selTax });
       this._cdr.markForCheck();
-
 
     })
   }
@@ -401,25 +325,15 @@ export class AddServicePage implements OnInit {
 
   doSubmit(): void {
 
+    this.unsubscribe$.sink = this._setupapiservuce.addService(this.submitForm.value).subscribe((data: any) => {
 
-    this.submitForm.patchValue({ selectedsubcatid: this.subcatval });
-    this.submitForm.patchValue({ selectedcatid: this.catvalue });
+      //   this.apiresponse = data;
 
-
-
-
-
-    this.unsubscribe$.sink = this._setupapiservuce.addService(this.submitForm.value).subscribe(data => {
-
-      this.apiresponse = data;
-
-      if (this.apiresponse.body.message === 'FAILURE') {
+      if (data.body.message === 'FAILURE') {
 
         this._loadingservice.presentToastWithOptions(this._authervice.errormsg, 'middle', false, '');
-
-
         this._cdr.markForCheck();
-      } else if (this.apiresponse.body.message === 'SUCCESS') {
+      } else if (data.body.message === 'SUCCESS') {
         this.submitForm.reset();
         this._loadingservice.routeAfter(600, `/app/settings/list-service/${this._authervice.center.id}`, 'Service  Added Successfylly', 'middle', false, '');
       }
@@ -433,7 +347,6 @@ export class AddServicePage implements OnInit {
   }
 
 
-
   ngOnDestroy() {
     this.unsubscribe$.unsubscribe();
   }
@@ -441,9 +354,6 @@ export class AddServicePage implements OnInit {
   goBack() {
     this._navController.navigateBack([`/app/settings/list-service/${this._authervice.center.id}`]);
   }
-
-
-
 
 }
 

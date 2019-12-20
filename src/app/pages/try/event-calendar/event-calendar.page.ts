@@ -76,7 +76,7 @@ export class EventCalendarPage implements OnInit {
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
 
-    debugger;
+    // debugger;
 
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();

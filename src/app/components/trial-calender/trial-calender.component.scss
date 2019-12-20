@@ -1,0 +1,39 @@
+.header {
+	font-size: 18px;
+	font-weight: 500;
+	color: #555555;
+	text-align: left;
+}
+
+ion-toolbar {
+	--background-color: #f1f1f1;
+}
+
+ion-card-header {
+	padding: 20px 20px 20px 20px;
+}
+
+.btn-style {
+	padding-top: 10px;
+}
+
+.center-date {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+ion-card-title {
+	font-size: 18px;
+}
+
+// .card-title {
+// 	font-size: 18px;
+// 	display: flex;
+// 	justify-content: space-between;
+// }
+
+.show {
+	font-size: 12px;
+	color: grey;
+}

@@ -70,24 +70,28 @@
 
 .select-modal {
 	.modal-wrapper {
-		width: 600px;
-		left: calc(50% - (600px / 2));
-		height: 500px;
-		top: calc(50% - (500px / 2));
+		height: 80vh;
+	}
+}
+
+.schedule-trial-modal {
+	.modal-wrapper {
+		height: 100vh;
+		width: 100vh;
 	}
 }
 
 // creates backdrop
-ion-modal {
-	padding: 30px;
-	background: rgba(0, 0, 0, 0.5);
-	ion-content {
-		border-radius: 25px;
-	}
-}
+// ion-modal {
+// 	padding: 30px;
+// 	background: rgba(0, 0, 0, 0.5);
+// 	// ion-content {
+// 	// 	border-radius: 25px;
+// 	// }
+// }
 
 .select-modal {
-	--background: #f4b004;
+	--background: #f1f1f1;
 }
 
 // DND - END
@@ -166,3 +170,23 @@ ion-modal {
 	}
 }
 
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+	transition: 2s linear;
+}
+
+@keyframes mymove {
+	from {
+		top: 0px;
+	}
+	to {
+		top: 200px;
+	}
+}
+
+.my-custom-modal-css .modal-wrapper {
+	height: 50%;
+	top: 50%;
+	position: absolute;
+	display: block;
+}

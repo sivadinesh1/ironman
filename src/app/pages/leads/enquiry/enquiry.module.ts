@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { EnquiryPage } from './enquiry.page';
 import { EnquiryResolverService } from './resolver-enquiry.service';
+import { SharedModule } from 'src/app/shared.module';
+import { MatDialogRef } from '@angular/material';
 
 const routes: Routes = [
   {
@@ -22,9 +24,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
   declarations: [EnquiryPage]
+
 })
 export class EnquiryPageModule { }

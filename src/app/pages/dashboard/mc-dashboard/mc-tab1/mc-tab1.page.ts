@@ -9,6 +9,7 @@ import { ErrorService } from 'src/app/services/error.service';
 import { NavController } from '@ionic/angular';
 import { DashboardApiService } from '../../dashboard-api.service';
 import { SetupApiService } from 'src/app/pages/setup/setup-api.service';
+import { EnquiryApiService } from 'src/app/pages/leads/enquiry/enquiry-api.service';
 
 
 @Component({
@@ -23,10 +24,15 @@ export class McTab1Page implements OnInit {
   userid: any;
   centerInfoList: any;
 
+  enquiryinfoList: any;
+
+  openstatus: any;
+
   constructor(private route: ActivatedRoute, private _loadingservice: LoadingService,
     private _authervice: AuthenticationService, private _cdr: ChangeDetectorRef,
     private _errorservice: ErrorService, private navController: NavController,
     private _router: Router, private _dashboardapiservice: DashboardApiService,
+    private _enquiryservice: EnquiryApiService,
     private setupapiservice: SetupApiService) {
     this.userid = this.route.snapshot.paramMap.get('userid');
 
@@ -37,6 +43,8 @@ export class McTab1Page implements OnInit {
 
 
   ngOnInit() {
+
+
 
 
     this.unsubscribe$.sink = this._dashboardapiservice.getCenterWiseInfo(this.userid, 'center').subscribe(
@@ -50,6 +58,26 @@ export class McTab1Page implements OnInit {
 
         } else if (this.apiDataRes.message === 'SUCCESS') {
           this.centerInfoList = this.apiDataRes.obj;
+
+          this._cdr.markForCheck();
+        }
+
+
+      }
+    );
+
+
+    this.unsubscribe$.sink = this._enquiryservice.getFullEnquiryDetails(this.userid).subscribe(
+      data => {
+        this.apiDataRes = data;
+
+
+        if (this.apiDataRes.message === 'FAILURE') {
+
+          this._loadingservice.presentToastWithOptions(this._authervice.errormsg, 'middle', false, '');
+
+        } else if (this.apiDataRes.message === 'SUCCESS') {
+          this.enquiryinfoList = this.apiDataRes.obj;
 
           this._cdr.markForCheck();
         }
@@ -76,5 +104,10 @@ export class McTab1Page implements OnInit {
 
 
   }
+
+  eventCalendar() {
+    this.navController.navigateForward(['/event-calendar']);
+  }
+
 
 }

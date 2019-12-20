@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="start">
-			<ion-back-button defaultHref="/" ></ion-back-button>
+			<ion-back-button defaultHref="/"></ion-back-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -15,7 +15,12 @@
 			<div formGroupName="trainuser">
 				<ion-item class="input-item">
 					<ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
-					<ion-input type="text" placeholder="Enter First Name" formControlName="firstname" clearInput></ion-input>
+					<ion-input
+						type="text"
+						placeholder="Enter First Name"
+						formControlName="firstname"
+						clearInput
+					></ion-input>
 				</ion-item>
 
 				<div class="error-container">
@@ -38,8 +43,8 @@
 					<ion-input
 						type="text"
 						placeholder="Enter Mobile number"
-						formControlName="mobilenumber" readonly
-						
+						formControlName="mobilenumber"
+						readonly
 					></ion-input>
 				</ion-item>
 
@@ -125,8 +130,46 @@
 					{{ item.level }}
 				</ion-label>
 			</ion-chip>
+
+			<ion-item>
+				<ion-thumbnail slot="start">
+					<ion-img [src]="imgurl"></ion-img>
+				</ion-thumbnail>
+				<ion-label>My Pic</ion-label>
+			</ion-item>
 		</ion-list>
 
-		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid">Edit Trainer</ion-button>
+		<ion-button class="sub-btn" type="submit" expand="block" [disabled]="!submitForm.valid"
+			>Edit Trainer</ion-button
+		>
+
+		<input type="file" (change)="fileChangeEvent($event)" />
+		<button (click)="rotateLeft()">Rotate left</button>
+		<button (click)="rotateRight()">Rotate right</button>
+		<button (click)="flipHorizontal()">Flip horizontal</button>
+		<button (click)="flipVertical()">Flip vertical</button>
+
+		<div>
+			<image-cropper
+				[imageChangedEvent]="imageChangedEvent"
+				[maintainAspectRatio]="true"
+				[aspectRatio]="4 / 3"
+				[resizeToWidth]="128"
+				[cropperMinWidth]="128"
+				[onlyScaleDown]="true"
+				[roundCropper]="false"
+				format="png"
+				outputType="base64"
+				(imageCropped)="imageCropped($event)"
+				(imageLoaded)="imageLoaded()"
+				(cropperReady)="cropperReady()"
+				(loadImageFailed)="loadImageFailed()"
+				[style.display]="showCropper ? null : 'none'"
+				[alignImage]="'left'"
+			></image-cropper>
+		</div>
+		<img [src]="croppedImage" />
 	</form>
 </ion-content>
+
+<ion-item></ion-item>

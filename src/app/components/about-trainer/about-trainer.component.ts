@@ -16,8 +16,7 @@ export class AboutTrainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.trainerInfo = this.data;
-    
+    this.trainerInfo = this.data.item;
 
   }
 

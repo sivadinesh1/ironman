@@ -14,6 +14,7 @@ import { ShellModule } from '../shell/shell.module';
 import { CurrencyPadComponent } from './currency-pad/currency-pad.component';
 import { ServicesCardComponent } from './services-card/services-card.component';
 import { AnimatedLikeComponent } from './animated-like/animated-like.component';
+import { PhonePadComponent } from './phone-pad/phone-pad.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { AnimatedLikeComponent } from './animated-like/animated-like.component';
     CounterInputComponent,
     RatingInputComponent,
     CurrencyPadComponent,
+    PhonePadComponent,
     ServicesCardComponent,
     AnimatedLikeComponent
   ],
@@ -40,9 +42,10 @@ import { AnimatedLikeComponent } from './animated-like/animated-like.component';
     CounterInputComponent,
     RatingInputComponent,
     CurrencyPadComponent,
+    PhonePadComponent,
     ServicesCardComponent,
     AnimatedLikeComponent
   ],
-  entryComponents: [CurrencyPadComponent, ServicesCardComponent],
+  entryComponents: [CurrencyPadComponent, PhonePadComponent, ServicesCardComponent],
 })
 export class ComponentsModule { }

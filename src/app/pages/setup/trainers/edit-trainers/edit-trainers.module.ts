@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { EditTrainersPage } from './edit-trainers.page';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 const routes: Routes = [
   {
     path: '',
@@ -20,8 +22,9 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    ImageCropperModule,
     RouterModule.forChild(routes)
   ],
   declarations: [EditTrainersPage]
 })
-export class EditTrainersPageModule {}
+export class EditTrainersPageModule { }

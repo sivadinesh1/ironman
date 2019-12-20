@@ -18,15 +18,15 @@ export class NavigationService {
 
 
   showDashboard() {
-    
+
     let userObj = this._authservice.usrobj;
     if (userObj.role === 'centeradmin') {
       this._router.navigate([`app/dashboard/admin-dashboard/${userObj.id}`]);
-    } else if (this.roletype === 'membercoordinator') {
+    } else if (userObj.role === 'membercoordinator') {
       this._router.navigate([`app/dashboard/mc-dashboard/${userObj.id}`]);
-    } else if (this.roletype === 'trainer') {
+    } else if (userObj.role === 'trainer') {
       this._router.navigate([`app/dashboard/trainer-dashboard/${userObj.id}`]);
-    } else if (this.roletype === 'member') {
+    } else if (userObj.role === 'member') {
       this._router.navigate([`app/dashboard/member-dashboard/${userObj.id}`]);
     }
 

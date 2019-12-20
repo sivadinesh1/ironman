@@ -2,7 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // tslint:disable-next-line:max-line-length
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSliderModule, MatSelectModule, MatRadioModule, MatSlideToggleModule, MatExpansionModule, MatDatepickerModule, MatCardModule, MatToolbarModule, MatNativeDateModule, MatTooltipModule, MatTableModule, MatMenuModule, MatPaginatorModule, MatSortModule, MatChipsModule, MatButtonToggleModule, MatSidenavModule, MatListModule, MatCheckboxModule, MatAutocompleteModule, MatProgressBarModule, MatBottomSheetModule, MatProgressSpinnerModule, MatDialogModule, MAT_DATE_LOCALE, MatSnackBarModule, MatBadgeModule, MatTabsModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSliderModule, MatSelectModule, MatRadioModule, MatSlideToggleModule, MatExpansionModule, MatDatepickerModule, MatCardModule, MatToolbarModule, MatNativeDateModule, MatTooltipModule, MatTableModule, MatMenuModule, MatPaginatorModule, MatSortModule, MatChipsModule, MatButtonToggleModule, MatSidenavModule, MatListModule, MatCheckboxModule, MatAutocompleteModule, MatProgressBarModule, MatBottomSheetModule, MatProgressSpinnerModule, MatDialogModule, MAT_DATE_LOCALE, MatSnackBarModule, MatBadgeModule, MatTabsModule, MatStepperModule } from '@angular/material';
 import { IonicModule } from '@ionic/angular';
 
 
@@ -23,7 +23,7 @@ import { AboutTrainerComponent } from './components/about-trainer/about-trainer.
 import { FormDirective } from './util/directives/form.directive';
 import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EmailFormComponent } from './components/email-form/email-form.component';
 import { PhoneFormComponent } from './components/phone-form/phone-form.component';
 import { NameFormComponent } from './components/name-form/name-form.component';
@@ -31,6 +31,9 @@ import { ScrollVanishDirective } from './directives/scroll-vanish.directive';
 import { AnimateItemsDirective } from './directives/animate-items.directive';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TrialCalenderComponent } from './components/trial-calender/trial-calender.component';
+import { NgCalendarModule } from 'ionic2-calendar';
+import { PhonePadComponent } from './components/phone-pad/phone-pad.component';
 
 const components = [
 
@@ -58,13 +61,17 @@ const components = [
 
 
   AboutTrainerComponent,
+  TrialCalenderComponent,
+
 
   ScrollVanishDirective,
   AnimateItemsDirective,
 ];
 
 const generic = [
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  NgCalendarModule,
+  FormsModule
 ]
 
 const matcomponents = [
@@ -74,7 +81,7 @@ const matcomponents = [
   MatSliderModule,
   MatSelectModule,
   MatRadioModule,
-
+  MatStepperModule,
   MatSlideToggleModule,
   MatExpansionModule,
   MatDatepickerModule,
@@ -124,7 +131,7 @@ const matcomponents = [
       multi: true
     }
   ],
-  entryComponents: [AboutTrainerComponent,],
+  entryComponents: [AboutTrainerComponent, TrialCalenderComponent,],
   exports: [
     ...matcomponents, ...components, IonicModule,
   ],
